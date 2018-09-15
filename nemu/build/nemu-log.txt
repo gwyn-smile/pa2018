@@ -1,0 +1,15 @@
+[1;34m[src/monitor/monitor.c,54,load_default_img] No image is given. Use the default build-in image.[0m
+[1;34m[src/monitor/monitor.c,28,welcome] Debug: [1;32mON[0m[0m
+[1;34m[src/monitor/monitor.c,31,welcome] If debug mode is on, A log file will be generated to record every instruction NEMU executes. This may lead to a large log file. If it is not necessary, you can turn it off in include/common.h.[0m
+[1;34m[src/monitor/monitor.c,36,welcome] Build time: 07:12:10, Sep 15 2018[0m
+  100000:   b8 34 12 00 00                        movl $0x1234,%eax
+  100005:   b9 27 00 10 00                        movl $0x100027,%ecx
+  10000a:   89 01                                 movl %eax,(%ecx)
+  10000c:   66 c7 41 04 01 00                     movw $0x1,0x4(%ecx)
+  100012:   bb 02 00 00 00                        movl $0x2,%ebx
+  100017:   66 c7 84 99 00 e0 ff ff 01 00         movw $0x1,-0x2000(%ecx,%ebx,4)
+  100021:   b8 00 00 00 00                        movl $0x0,%eax
+  100026:   d6                                    nemu trap
+[1;31mnemu: HIT GOOD TRAP[0m at eip = 0x00100026
+
+[1;34m[src/monitor/cpu-exec.c,22,monitor_statistic] total guest instructions = 8[0m
