@@ -57,14 +57,14 @@ static int cmd_info(char *args) {
   if(arg == NULL)
     printf("there should be a second argument\n");
   else if (*arg == 'r') {
-    printf("%%eax: %x\n",reg_l(R_EAX));
-    printf("%%ebx: %x\n",reg_l(R_EBX));
-    printf("%%ecx: %x\n",reg_l(R_ECX));
-    printf("%%edx: %x\n",reg_l(R_EDX));
-    printf("%%esp: %x\n",reg_l(R_ESP));
-    printf("%%ebp: %x\n",reg_l(R_EBP));
-    printf("%%esi: %x\n",reg_l(R_ESI));
-    printf("%%edi: %x\n",reg_l(R_EDI));
+    printf("%%eax: 0x%08x\n",reg_l(R_EAX));
+    printf("%%ebx: 0x%08x\n",reg_l(R_EBX));
+    printf("%%ecx: 0x%08x\n",reg_l(R_ECX));
+    printf("%%edx: 0x%08x\n",reg_l(R_EDX));
+    printf("%%esp: 0x%08x\n",reg_l(R_ESP));
+    printf("%%ebp: 0x%08x\n",reg_l(R_EBP));
+    printf("%%esi: 0x%08x\n",reg_l(R_ESI));
+    printf("%%edi: 0x%08x\n",reg_l(R_EDI));
   }
   else if(*arg == 'w') {
 
