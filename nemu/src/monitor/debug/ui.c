@@ -76,7 +76,7 @@ static int cmd_info(char *args) {
 
 static int cmd_x(char *args) {
   int memory_num = 0, memory_start = 0;
-  sscanf(args,"x %d %x",&memory_num,&memory_start);
+  sscanf(NULL,"x %d %x",&memory_num,&memory_start);
 
   printf("%d %x\n",memory_num,memory_start);
 
