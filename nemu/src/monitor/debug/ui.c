@@ -36,6 +36,18 @@ static int cmd_q(char *args) {
   return -1;
 }
 
+static int cmd_si(char *args) {
+  return 0;
+}
+
+static int cmd_info(char *args) {
+  return 0;
+}
+
+static int cmd_x(char *args) {
+  return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -48,7 +60,9 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
-
+  { "si", "Step into//For assembly instructions", cmd_si },
+  { "info", "Print registers/watchpoints", cmd_info },
+  { "x", "Print the value of memory", cmd_x }
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
