@@ -44,12 +44,11 @@ static int cmd_si(char *args) {
   else
   {
     steps_num = atoi(arg);
-	printf("%d",steps_num);
   }
   if(steps_num >= 0)
     cpu_exec(steps_num);
   else
-	printf("the number of step should >= 0");
+	printf("the number of step should >= 0\n");
   return 0;
 }
 
