@@ -75,11 +75,8 @@ static int cmd_info(char *args) {
 }
 
 static int cmd_x(char *args) {
-  char* arg1 = strtok(NULL, " ");
-  char* arg2 = strtok(NULL, " ");
-
-  int memory_num = atoi(arg1);
-  int memory_start = atoi(arg2+2);
+  int memory_num = 0, memory_start = 0;
+  sscanf(args,"x %d %x",&memory_num,&memory_start);
 
   printf("%d %x\n",memory_num,memory_start);
 
