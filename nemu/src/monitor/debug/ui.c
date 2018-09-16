@@ -53,6 +53,24 @@ static int cmd_si(char *args) {
 }
 
 static int cmd_info(char *args) {
+  char *arg = strtok(NULL, " ");
+  if(arg == NULL)
+    printf("there should be a second argument\n");
+  else if (*arg == 'r') {
+    printf("%%eax: %x\n",reg_l(R_EAX));
+    printf("%%ebx: %x\n",reg_l(R_EBX));
+    printf("%%ecx: %x\n",reg_l(R_ECX));
+    printf("%%edx: %x\n",reg_l(R_EDX));
+    printf("%%esp: %x\n",reg_l(R_ESP));
+    printf("%%ebp: %x\n",reg_l(R_EBP));
+    printf("%%esi: %x\n",reg_l(R_ESI));
+    printf("%%edi: %x\n",reg_l(R_EDI));
+  }
+  else if(*arg == 'w') {
+
+  }
+  else 
+    printf("Unkown second argument(should be r/w)"); 
   return 0;
 }
 
