@@ -77,10 +77,10 @@ static int cmd_info(char *args) {
 static int cmd_x(char *args) {
   int memory_num = 0, memory_start = 0;
 
-  sscanf(args,"x %d %x",&memory_num,&memory_start);
-  printf("%s",args);
+  sscanf(args,"%d %x",&memory_num,&memory_start);
+  printf("%s\n",args);
   printf("%d %x\n",memory_num,memory_start);
-
+  
   return 0;
 }
 
