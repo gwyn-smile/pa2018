@@ -79,7 +79,7 @@ static int cmd_x(char *args) {
   char* arg2 = strtok(NULL, " ");
 
   int memory_num = atoi(arg1);
-  int memory_start = atoi(arg2);
+  int memory_start = atoi(arg2+2);
 
   printf("%d %x\n",memory_num,memory_start);
 
