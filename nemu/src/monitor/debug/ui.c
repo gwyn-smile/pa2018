@@ -91,8 +91,7 @@ static int cmd_x(char *args) {
 	printf("0x%08x ",value);
 	memory_pos += 4;
   }
-  if(memory_len % 4 != 0)
-	printf("\n");
+  printf("\n");
   return 0;
 }
 
