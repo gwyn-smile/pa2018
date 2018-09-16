@@ -75,12 +75,19 @@ static int cmd_info(char *args) {
 }
 
 static int cmd_x(char *args) {
-  int memory_num = 0, memory_start = 0;
-
-  sscanf(args,"%d %x",&memory_num,&memory_start);
-  printf("%s\n",args);
-  printf("%d %x\n",memory_num,memory_start);
-  
+  int memory_len = 0;
+  uint32_t memory_pos = 0;
+  sscanf(args,"%d %x",&memory_len,&memory_pos);
+  uint32_t value;
+  for(int i = 1;i <= memory_len;i++) {
+    if(i!=1 && i%4==1) {
+	  printf("\n");
+      //printf the start of memory
+	  printf("%x: ",memory_pos);
+	}
+	value = vaddr_read(memory_pos,4);
+	printf("0x %x ",value);
+  }
   return 0;
 }
 
