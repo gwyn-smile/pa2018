@@ -85,7 +85,7 @@ static int cmd_x(char *args) {
 	    printf("\n");
 
       //printf the start of memory
-	  printf("0x%x: ",memory_pos);
+	  printf("0x%08x: ",memory_pos);
 	}
 	value = vaddr_read(memory_pos,4);
 	printf("0x%08x ",value);
