@@ -37,6 +37,19 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_si(char *args) {
+  int steps_num = 0;
+  char *arg = strtok(NULL, " ");
+  if(arg == NULL)
+	  steps_num = 1;
+  else
+  {
+    steps_num = atoi(arg);
+	printf("%d",steps_num);
+  }
+  if(steps_num >= 0)
+    cpu_exec(steps_num);
+  else
+	printf("the number of step should >= 0");
   return 0;
 }
 
