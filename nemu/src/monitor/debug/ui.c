@@ -57,15 +57,15 @@ static int cmd_info(char *args) {
   if(arg == NULL)
     printf("there should be a second argument\n");
   else if (*arg == 'r') {
-    printf("%%eax: 0x %08x\n",reg_l(R_EAX));
-    printf("%%ebx: 0x %08x\n",reg_l(R_EBX));
-    printf("%%ecx: 0x %08x\n",reg_l(R_ECX));
-    printf("%%edx: 0x %08x\n",reg_l(R_EDX));
-    printf("%%esp: 0x %08x\n",reg_l(R_ESP));
-    printf("%%ebp: 0x %08x\n",reg_l(R_EBP));
-    printf("%%esi: 0x %08x\n",reg_l(R_ESI));
-    printf("%%edi: 0x %08x\n",reg_l(R_EDI));
-  }
+    printf("%%eax: 0x%08x\n",reg_l(R_EAX));
+    printf("%%ebx: 0x%08x\n",reg_l(R_EBX));
+    printf("%%ecx: 0x%08x\n",reg_l(R_ECX));
+    printf("%%edx: 0x%08x\n",reg_l(R_EDX));
+    printf("%%esp: 0x%08x\n",reg_l(R_ESP));
+    printf("%%ebp: 0x%08x\n",reg_l(R_EBP));
+    printf("%%esi: 0x%08x\n",reg_l(R_ESI));
+    printf("%%edi: 0x%08x\n",reg_l(R_EDI));
+  } 
   else if(*arg == 'w') {
 
   }
@@ -88,7 +88,7 @@ static int cmd_x(char *args) {
 	  printf("0x%x: ",memory_pos);
 	}
 	value = vaddr_read(memory_pos,4);
-	printf("0x%x ",value);
+	printf("0x%08x ",value);
 	memory_pos += 4;
   }
   if(memory_len % 4 != 0)
