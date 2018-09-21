@@ -178,19 +178,26 @@ uint32_t eval(char *p, char *q) {
 	return eval(p + 1, q - 1);
   }
   else {
-	int priority = 100;
+	int priority = 100, flag = 0;
 	char* op = p, *tmp;
 	for(tmp = p; tmp != q+1; tmp++) {
-	  for(int i = 0; i <= OP_NUM - 1; i++) {
-	    if(*tmp == op_prio_list[i].op) {
+	  if(*tmp == '(') {
+		flag++;
+	  }
+	  else if(*tmp == ')') {
+		flag--;
+	  }
+	  else if(flag == 0) {
+	    for(int i = 0; i <= OP_NUM - 1; i++) {
+	      if(*tmp == op_prio_list[i].op) {
 
-		  if(priority >= op_prio_list[i].rank) {
-            op = tmp;
-		    priority = op_prio_list[i].rank;
-		  }
-
-		  break;
-        }
+		    if(priority >= op_prio_list[i].rank) {
+              op = tmp;
+		      priority = op_prio_list[i].rank;
+		    }
+		    break;
+          }
+	    }
 	  }
 	}
     printf("got op: %c\n", *op);
