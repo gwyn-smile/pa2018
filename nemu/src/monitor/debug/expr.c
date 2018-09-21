@@ -140,7 +140,7 @@ uint32_t expr(char *e, bool *success) {
   } 
 
   /* TODO: Insert codes to evaluate the expression. */
-  //printf("%s %d\n",e,(int)strlen(e));
+  printf("%s %d %s\n", e, (int)strlen(e), e+strlen(e)-1);
   
   uint32_t val = eval(e, e + strlen(e) - 1);
   printf("the val is %u\n", val);
