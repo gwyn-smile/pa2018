@@ -140,7 +140,6 @@ uint32_t expr(char *e, bool *success) {
   } 
 
   /* TODO: Insert codes to evaluate the expression. */
-  printf("%s %d %s\n", e, (int)strlen(e), e+strlen(e)-1);
   
   uint32_t val = eval(e, e + strlen(e) - 1);
   printf("the val is %u\n", val);
@@ -179,13 +178,13 @@ uint32_t eval(char *p, char *q) {
 	return eval(p + 1, q - 1);
   }
   else {
-	int priority = 0;
+	int priority = 100;
 	char* op = p, *tmp;
 	for(tmp = p; tmp != q+1; tmp++) {
 	  for(int i = 0; i <= OP_NUM - 1; i++) {
 	    if(*tmp == op_prio_list[i].op) {
 
-		  if(priority <= op_prio_list[i].rank) {
+		  if(priority >= op_prio_list[i].rank) {
             op = tmp;
 		    priority = op_prio_list[i].rank;
 		  }
