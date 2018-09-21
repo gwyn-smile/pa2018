@@ -166,7 +166,7 @@ bool check_parentheses(char *p, char*q) {
 }
 
 uint32_t eval(char *p, char *q) {
-  printf("each time %s %s\n", p, q);
+  printf("each time: %s %s\n", p, q);
   if(p > q) {
 	printf("%s %s\n", p, q);
 	assert(0);
@@ -194,7 +194,7 @@ uint32_t eval(char *p, char *q) {
         }
 	  }
 	}
-
+    printf("got op: %c\n", *op);
 	int val1 = eval(p, op - 1);
 	int val2 = eval(op + 1, q);
     
