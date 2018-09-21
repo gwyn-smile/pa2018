@@ -182,7 +182,7 @@ uint32_t eval(char *p, char *q) {
 	int priority = 0;
 	char* op = p, *tmp;
 	for(tmp = p; tmp != q+1; tmp++) {
-	  for(int i = 0; i <= OP_NUM; i++) {
+	  for(int i = 0; i <= OP_NUM - 1; i++) {
 	    if(*tmp == op_prio_list[i].op) {
 
 		  if(priority <= op_prio_list[i].rank) {
