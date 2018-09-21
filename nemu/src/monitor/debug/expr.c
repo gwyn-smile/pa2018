@@ -142,7 +142,7 @@ uint32_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
   //printf("%s %d\n",e,(int)strlen(e));
   
-  uint32_t val = eval(e,e+strlen(e)-1);
+  uint32_t val = eval(e, e + strlen(e) - 1);
   printf("the val is %u\n", val);
   
   return 0;
@@ -167,6 +167,7 @@ bool check_parentheses(char *p, char*q) {
 
 uint32_t eval(char *p, char *q) {
   if(q - p < 0) {
+	printf("%s %s\n", p, q);
 	assert(0);
     return false;
   }
@@ -204,6 +205,5 @@ uint32_t eval(char *p, char *q) {
 	  default: assert(0);
 	}
   }
-  
 }
 
