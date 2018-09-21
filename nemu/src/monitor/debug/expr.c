@@ -7,10 +7,9 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ
-
+  TK_NOTYPE = 256, TK_EQ,
   /* TODO: Add more token types */
-
+  TK_NUM
 };
 
 static struct rule {
@@ -18,10 +17,16 @@ static struct rule {
   int token_type;
 } rules[] = {
 
-  /* TODO: Add more rules.
+  /* TODO: Add more rules. 
    * Pay attention to the precedence level of different rules.
    */
-
+  {"\\(", '('},			// left bracket
+  {"\\)", ')'},			// right bracket
+  {"\\*", '*'},			// multiply
+  {"\\/", '/'},			// divide
+  {"\\-", '-'},			// minus   
+  
+  {"[1-9][0-9]*|0", TK_NUM},	// numbers
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
   {"==", TK_EQ}         // equal
@@ -80,7 +85,23 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
-          default: TODO();
+          case '+':case '-':case '*':case '/':case '(':case ')':case TK_EQ: {
+			  tokens[nr_token++].type=rules[i].token_type;
+			  printf("match + - * / () ==\n");
+		  }; break;
+		  case TK_NUM: {
+			  tokens[nr_token].type=rules[i].token_type;
+			  int str_len = strlen(rules[i].regex);
+			  // if str_len > 32 then cut off the rest
+              if (str_len <= 32)
+				  strncpy(tokens[nr_token].str, rules[i].regex, str_len);
+			  else
+				  strncpy(tokens[nr_token].str, rules[i].regex + str_len - 32, 32);
+			  nr_token++;
+
+			  printf("%s\n",tokens[nr_token].str);
+		  }; break;
+		  default: TODO();
         }
 
         break;

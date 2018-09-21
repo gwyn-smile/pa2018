@@ -86,16 +86,23 @@ static int cmd_x(char *args) {
 
       //printf the start of memory
 	  printf("0x%08x: ",memory_pos);
-	}
+	 }
 	value = vaddr_read(memory_pos,4);
 	printf("0x%08x ",value);
 	memory_pos += 4;
-  }
+	}
   printf("\n");
   return 0;
 }
 
 static int cmd_help(char *args);
+
+static int cmd_t(char *args) {
+  char *arg = strtok(NULL, " ");
+  bool flag;
+  expr(arg,&flag);
+  return 0;
+}
 
 static struct {
   char *name;
@@ -109,7 +116,8 @@ static struct {
   /* TODO: Add more commands */
   { "si", "Step into//For assembly instructions", cmd_si },
   { "info", "Print registers/watchpoints", cmd_info },
-  { "x", "Print the value of memory", cmd_x }
+  { "x", "Print the value of memory", cmd_x },
+  { "t", "Test the function of tokens", cmd_t}
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
