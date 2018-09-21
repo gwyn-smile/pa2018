@@ -87,8 +87,8 @@ static bool make_token(char *e) {
         switch (rules[i].token_type) {
           case '+':case '-':case '*':case '/':case '(':case ')':case TK_EQ: {
 			  tokens[nr_token++].type=rules[i].token_type;
-			  printf("match + - * / () ==\n");
-			  printf("%d\n",tokens[nr_token-1].type);
+			  //printf("match + - * / () ==\n");
+
 		  }; break;
 	 	  case TK_NUM: {
 			  tokens[nr_token].type=rules[i].token_type;
@@ -99,7 +99,7 @@ static bool make_token(char *e) {
 				  strncpy(tokens[nr_token].str, substr_start + substr_len - 32, 32);
 			  nr_token++;
 
-			  printf("%s\n",tokens[nr_token-1].str);
+			  //printf("%s\n",tokens[nr_token-1].str);
 		  }; break;
 		  default: TODO();
          }
