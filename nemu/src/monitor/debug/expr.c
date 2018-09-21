@@ -141,15 +141,15 @@ uint32_t expr(char *e, bool *success) {
 bool check_parentheses(char *p, char*q) {
   bool flag = ((*p)=='(') && ((*q)==')');
   int count=0;
-  for(char* tmp=p; tmp!=q+1; tmp++) {
+  for(char* tmp=p; tmp!=q; tmp++) {
     if(*tmp=='(')
 	  count++;
 	else if(*tmp==')')
       count--;
-	if(count<0)
+	if(count<=0)
       return false;
   }
-  if(count==0 && flag)
+  if(count==1 && flag)
     return true;
   else
     return false;
