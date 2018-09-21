@@ -166,7 +166,7 @@ bool check_parentheses(char *p, char*q) {
 }
 
 uint32_t eval(char *p, char *q) {
-  if(q - p < 0) {
+  if(p > q) {
 	printf("%s %s\n", p, q);
 	assert(0);
     return false;
