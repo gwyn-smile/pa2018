@@ -82,14 +82,14 @@ static bool make_token(char *e) {
         /* TODO: Now a new token is recognized with rules[i]. Add codes
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
-         */
+          */
 
-        switch (rules[i].token_type) {
+         switch (rules[i].token_type) {
           case '+':case '-':case '*':case '/':case '(':case ')':case TK_EQ: {
 			  tokens[nr_token++].type=rules[i].token_type;
 			  //printf("match + - * / () ==\n");
 
-		  }; break;
+		   }; break;
 	 	  case TK_NUM: {
 			  tokens[nr_token].type=rules[i].token_type;
 			  // if str_len > 32 then cut off the rest
@@ -100,19 +100,19 @@ static bool make_token(char *e) {
 			  nr_token++;
 
 			  //printf("%s\n",tokens[nr_token-1].str);
-		  }; break;
+		   }; break;
 		  default: TODO();
          }
 
         break;
-       }
+        }
      }
 
     if (i == NR_REGEX) {
       printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
       return false;
-     }
-   }
+     } 
+   } 
 
   return true;
 }
@@ -124,18 +124,35 @@ uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
     return 0;
-  }
+  } 
 
   /* TODO: Insert codes to evaluate the expression. */
-  printf("%s %d\n",e,(int)strlen(e));
+  //printf("%s %d\n",e,(int)strlen(e));
+  if(check_parentheses(e,e+strlen(e)-1))
+	  printf("() match!\n");
+  else
+	  printf("() match fail!\n");
+  
   eval(e,e+strlen(e)-1);
   
   return 0;
 }
 
-bool check_parenttheses(char *p, char*q) {
-  return true;
-  
+bool check_parentheses(char *p, char*q) {
+  bool flag = ((*p)=='(') && ((*q)==')');
+  int count=0;
+  for(char* tmp=p; tmp!=q+1; tmp++) {
+    if(*tmp=='(')
+	  count++;
+	else if(*tmp==')')
+      count--;
+	if(count<0)
+      return false;
+  }
+  if(count==0 && flag)
+    return true;
+  else
+    return false;
 }
 
 bool eval(char *p, char *q) {
