@@ -89,7 +89,7 @@ static bool make_token(char *e) {
 			  tokens[nr_token++].type=rules[i].token_type;
 			  printf("match + - * / () ==\n");
 		  }; break;
-		  case TK_NUM: {
+	 	  case TK_NUM: {
 			  tokens[nr_token].type=rules[i].token_type;
 			  int str_len = strlen(rules[i].regex);
 			  // if str_len > 32 then cut off the rest
@@ -102,17 +102,17 @@ static bool make_token(char *e) {
 			  printf("%s\n",tokens[nr_token].str);
 		  }; break;
 		  default: TODO();
-        }
+         }
 
         break;
-      }
-    }
+       }
+     }
 
     if (i == NR_REGEX) {
       printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
       return false;
-    }
-  }
+     }
+   }
 
   return true;
 }
@@ -124,7 +124,10 @@ uint32_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
+  
+
+  
+  // TODO();
 
   return 0;
 }
