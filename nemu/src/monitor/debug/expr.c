@@ -6,6 +6,19 @@
 #include <sys/types.h>
 #include <regex.h>
 
+static struct op_priority {
+  char op;
+  int rank;
+} op_prio_list[] = {
+  
+  {'+', 1},
+  {'-', 1},
+  {'*', 2},
+  {'/', 2}
+};
+
+#define OP_NUM (sizeof(op_prio_list) / sizeof(op_prio_list[0]) )
+
 enum {
   TK_NOTYPE = 256, TK_EQ,
   /* TODO: Add more token types */
@@ -17,7 +30,7 @@ static struct rule {
   int token_type;
 } rules[] = {
 
-  /* TODO: Add more rules.  
+   /* TODO: Add more rules.  
    * Pay attention to the precedence level of different rules.
    */
   {"\\(", '('},			// left bracket
@@ -117,7 +130,7 @@ static bool make_token(char *e) {
   return true;
 }
 
-bool eval(char *p, char *q);
+uint32_t eval(char *p, char *q);
 bool check_parentheses(char *p, char *q);
 
 uint32_t expr(char *e, bool *success) {
@@ -128,12 +141,9 @@ uint32_t expr(char *e, bool *success) {
 
   /* TODO: Insert codes to evaluate the expression. */
   //printf("%s %d\n",e,(int)strlen(e));
-  if(check_parentheses(e,e+strlen(e)-1))
-	  printf("() match!\n");
-  else
-	  printf("() match fail!\n");
   
-  eval(e,e+strlen(e)-1);
+  uint32_t val = eval(e,e+strlen(e)-1);
+  printf("the val is %u\n", val);
   
   return 0;
 }
@@ -155,10 +165,45 @@ bool check_parentheses(char *p, char*q) {
     return false;
 }
 
-bool eval(char *p, char *q) {
-  return true;
+uint32_t eval(char *p, char *q) {
+  if(q-p>0) {
+	assert(0);
+    return false;
+  }
+  else if(p == q) {
+    return (*p) - '0';
+  }
+  else if(check_parentheses(p,q) == true) {
+	return eval(p + 1, q - 1);
+  }
+  else {
+	int priority = 0;
+	char* op = p, *tmp;
+	for(tmp = p; tmp != q+1; tmp++) {
+	  for(int i = 0; i <= OP_NUM; i++) {
+	    if(*tmp == op_prio_list[i].op) {
+
+		  if(priority <= op_prio_list[i].rank) {
+            op = tmp;
+		    priority = op_prio_list[i].rank;
+		  }
+
+		  break;
+        }
+	  }
+	}
+
+	int val1 = eval(p, op - 1);
+	int val2 = eval(op + 1, q);
+    
+	switch (*op) {
+      case '-': return val1 - val2; break;
+	  case '+': return val1 + val2; break;
+	  case '*': return val1 * val2; break;
+	  case '/': return val1 / val2; break;
+	  default: assert(0);
+	}
+  }
+  
 }
-
-
-
 
