@@ -92,12 +92,11 @@ static bool make_token(char *e) {
 		  }; break;
 	 	  case TK_NUM: {
 			  tokens[nr_token].type=rules[i].token_type;
-			  int str_len = strlen(rules[i].regex);
 			  // if str_len > 32 then cut off the rest
-              if (str_len <= 32)
-				  strncpy(tokens[nr_token].str, rules[i].regex, str_len);
+              if (substr_len <= 32)
+				  strncpy(tokens[nr_token].str, substr_start, substr_len);
 			  else
-				  strncpy(tokens[nr_token].str, rules[i].regex + str_len - 32, 32);
+				  strncpy(tokens[nr_token].str, substr_start + substr_len - 32, 32);
 			  nr_token++;
 
 			  printf("%s\n",tokens[nr_token-1].str);
