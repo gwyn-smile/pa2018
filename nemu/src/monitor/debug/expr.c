@@ -12,12 +12,12 @@ enum {
   TK_NUM
 };
 
-static struct rule {
+static struct rule { 
   char *regex;
   int token_type;
 } rules[] = {
 
-  /* TODO: Add more rules. 
+  /* TODO: Add more rules.  
    * Pay attention to the precedence level of different rules.
    */
   {"\\(", '('},			// left bracket
@@ -117,6 +117,9 @@ static bool make_token(char *e) {
   return true;
 }
 
+bool eval(char *p, char *q);
+bool check_parentheses(char *p, char *q);
+
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
@@ -124,10 +127,21 @@ uint32_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
+  printf("%s %d\n",e,(int)strlen(e));
+  eval(e,e+strlen(e)-1);
   
-
-  
-  // TODO();
-
   return 0;
 }
+
+bool check_parenttheses(char *p, char*q) {
+  return true;
+  
+}
+
+bool eval(char *p, char *q) {
+  return true;
+}
+
+
+
+
