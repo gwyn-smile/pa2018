@@ -147,7 +147,7 @@ uint32_t expr(char *e, bool *success) {
   uint32_t val = eval(e, e + strlen(e) - 1);
   printf("the expr val is %u\n", val);
   
-  return 0;
+  return val;
 }
 
 bool check_parentheses(char *p, char*q) {
