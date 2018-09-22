@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
     if(fscanf(fp, "%u %s\n", &val, ex) == -1)
 	  perror("fscanf fail\n");
 	else
-	  printf("%u %s\n", val, ex);
+	  printf("the scanf gets %u %s\n", val, ex);
     if(val == expr(ex, &flag) && flag==true)
 	  printf("%d: Success! ", count);
 	else
