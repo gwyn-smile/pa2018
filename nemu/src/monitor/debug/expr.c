@@ -167,18 +167,8 @@ bool check_parentheses(char *p, char*q) {
 
 uint32_t eval(char *p, char *q) {
   printf("each time: %s %s\n", p, q);
-  if(p > q) {
-	printf("%s %s\n", p, q);
-	assert(0);
-    return false;
-  }
-  else if(p == q) {
-    return (*p) - '0';
-  }
-  else if(check_parentheses(p,q) == true) {
-	return eval(p + 1, q - 1);
-  }
-  else if((*p) >= '0' && (*p) <= '9' && (*q) >= '0' && (*q) <= '9') {
+
+  if((*p) >= '0' && (*p) <= '9' && (*q) >= '0' && (*q) <= '9' && p <= q) {
 	bool flag = true;
 	for(char *tmp = p; tmp != q+1; tmp++) {
 	  if(*tmp >= '0' && *tmp <='9')
@@ -191,7 +181,19 @@ uint32_t eval(char *p, char *q) {
 	if(flag == true) {
 	  printf("get the num: %d", atoi(p));
 	  return atoi(p);
-	}
+    }
+  }
+
+  if(p > q) {
+	printf("%s %s\n", p, q);
+	assert(0);
+    return false;
+  }
+  else if(p == q) {
+    return (*p) - '0';
+  }
+  else if(check_parentheses(p,q) == true) {
+	return eval(p + 1, q - 1);
   }
   else {
 	int priority = 100, flag = 0;
