@@ -20,12 +20,12 @@ int main(int argc, char *argv[]) {
   int count = 0;
   while(!feof(fp)) { 
 	count++; 
-    if(fscanf(fp, "%u %s", &val, ex) == -1)
+    if(fscanf(fp, "%u %s\n", &val, ex) == -1)
 	  perror("fscanf fail\n");
     if(val == expr(ex, &flag) && flag==true)
 	  printf("%d: Success! ", count);
 	else
-	  printf("%d: FAIL scanf value %u ", count, val);
+	  printf("%d: FAIL real value %u ", count, val);
 	//if(count%2 == 0)
 	  //printf("\n");
   }
