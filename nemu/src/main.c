@@ -21,7 +21,9 @@ int main(int argc, char *argv[]) {
   while(!feof(fp)) { 
 	count++; 
     if(fscanf(fp, "%u %s\n", &val, ex) == -1)
-	  perror("fscanf fail");
+	  perror("fscanf fail\n");
+	else
+	  printf("val: %u, ex: %s\n",val,ex);
     if(val == expr(ex, &flag) && flag==true)
 	  printf("%d: Success! ", count);
 	else
