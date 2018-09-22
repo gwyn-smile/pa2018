@@ -23,14 +23,12 @@ int main(int argc, char *argv[]) {
 	printf("%d: ", count); 
     if(fscanf(fp, "%u %s\n", &val, ex) == -1)
 	  perror("fscanf fail\n");
-	else
-	  printf("the scanf gets %u %s\n", val, ex);
     if(val == expr(ex, &flag))
-	  printf("Success!\n");
+	  printf("Success! ");
 	else
-	  printf("FAIL real val %u\n", val);
-	//if(count%2 == 0)
-	  //printf("\n");
+	  printf("FAIL ");
+	if(count%10 == 0)
+	  printf("\n");
   }
   return 0;
 }
