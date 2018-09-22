@@ -26,9 +26,9 @@ int main(int argc, char *argv[]) {
 	else
 	  printf("the scanf gets %u %s\n", val, ex);
     if(val == expr(ex, &flag) && flag==true)
-	  printf("Success! ");
+	  printf("Success!\n");
 	else
-	  printf("FAIL real value %u ", val);
+	  printf("FAIL real value %u\n", val);
 	//if(count%2 == 0)
 	  //printf("\n");
   }
