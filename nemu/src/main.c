@@ -12,15 +12,15 @@ int main(int argc, char *argv[]) {
   //ui_mainloop(is_batch_mode);
   
   FILE *fp = fopen("/ics2018/nemu/tools/gen-expr/input", "r");
-  uint32_t val = 0;
+  if(fp == NULL)
+    perror("/input");
   char* ex = NULL;
+  uint32_t val = 0;
   bool flag = true;
   int count = 0;
   while(!feof(fp)) { 
 	count++; 
     fscanf(fp, "%u %s\n", &val, ex);
-	if(fp == NULL)
-      perror("/input");
     if(val == expr(ex, &flag) && flag==true)
 	  printf("%d: Success! ", count);
 	else
