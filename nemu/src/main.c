@@ -1,12 +1,13 @@
 #include<stdio.h>
 #include "nemu.h"
-//int init_monitor(int, char *[]);
+int init_monitor(int, char *[]);
 //void ui_mainloop(int);
 uint32_t expr(char*, bool*);
 
 int main(int argc, char *argv[]) {
   /* Initialize the monitor. */
   //int is_batch_mode = init_monitor(argc, argv);
+  init_monitor(argc, argv);
   /* Receive commands from user. */
   //ui_mainloop(is_batch_mode);
   
