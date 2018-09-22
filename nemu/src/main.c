@@ -12,12 +12,14 @@ int main(int argc, char *argv[]) {
   //ui_mainloop(is_batch_mode);
   
   FILE *fp = fopen("./tools/gen-expr/input", "r");
+  printf("check1\n");
   if(fp == NULL)
     perror("input not found");
   char* ex = NULL;
   uint32_t val = 0;
   bool flag = true;
   int count = 0;
+  printf("check2\n");
   while(!feof(fp)) { 
 	count++; 
     if(fscanf(fp, "%u %s\n", &val, ex) == -1)
