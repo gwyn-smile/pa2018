@@ -188,8 +188,10 @@ uint32_t eval(char *p, char *q) {
 		break;
 	  }
 	}
-	if(flag == true)
+	if(flag == true) {
+	  printf("get the num: %d", atoi(p));
 	  return atoi(p);
+	}
   }
   else {
 	int priority = 100, flag = 0;
