@@ -138,12 +138,14 @@ uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
     return 0;
-  } 
+  }
+  else
+	*success = true;
 
   /* TODO: Insert codes to evaluate the expression. */
   
   uint32_t val = eval(e, e + strlen(e) - 1);
-  printf("the val is %u\n", val);
+  printf("the expr val is %u\n", val);
   
   return 0;
 }
