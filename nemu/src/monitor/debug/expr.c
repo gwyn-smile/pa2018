@@ -189,9 +189,6 @@ uint32_t eval(char *p, char *q) {
 	assert(0);
     return false;
   }
-  else if(p == q) {
-    return (*p) - '0';
-  }
   else if(check_parentheses(p,q) == true) {
 	return eval(p + 1, q - 1);
   }
