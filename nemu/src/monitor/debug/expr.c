@@ -145,8 +145,7 @@ uint32_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
   
   uint32_t val = eval(e, e + strlen(e) - 1);
-  printf("the expr val is %u\n", val);
-  
+  //printf("the expr val is %u\n", val);
   return val;
 }
 
