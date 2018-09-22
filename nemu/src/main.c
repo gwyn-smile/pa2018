@@ -19,15 +19,16 @@ int main(int argc, char *argv[]) {
   bool flag = true;
   int count = 0;
   while(!feof(fp)) { 
-	count++; 
+	count++;
+	printf("%d: ", count); 
     if(fscanf(fp, "%u %s\n", &val, ex) == -1)
 	  perror("fscanf fail\n");
 	else
 	  printf("the scanf gets %u %s\n", val, ex);
     if(val == expr(ex, &flag) && flag==true)
-	  printf("%d: Success! ", count);
+	  printf("Success! ");
 	else
-	  printf("%d: FAIL real value %u ", count, val);
+	  printf("FAIL real value %u ", val);
 	//if(count%2 == 0)
 	  //printf("\n");
   }
