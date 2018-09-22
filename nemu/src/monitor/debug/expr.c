@@ -1,4 +1,5 @@
 #include "nemu.h"
+#include <stdlib.h>
 
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
@@ -177,6 +178,19 @@ uint32_t eval(char *p, char *q) {
   else if(check_parentheses(p,q) == true) {
 	return eval(p + 1, q - 1);
   }
+  else if((*p) >= '0' && (*p) <= '9' && (*q) >= '0' && (*q) <= '9') {
+	bool flag = true;
+	for(char *tmp = p; tmp != q+1; tmp++) {
+	  if(*tmp >= '0' && *tmp <='9')
+		continue;
+	  else {
+		flag = false;
+		break;
+	  }
+	}
+	if(flag == true)
+	  return atoi(p);
+  }
   else {
 	int priority = 100, flag = 0;
 	char* op = p, *tmp;
@@ -212,5 +226,6 @@ uint32_t eval(char *p, char *q) {
 	  default: assert(0);
 	}
   }
+  return 0;
 }
 
