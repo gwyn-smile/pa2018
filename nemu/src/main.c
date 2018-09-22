@@ -25,10 +25,10 @@ int main(int argc, char *argv[]) {
 	  perror("fscanf fail\n");
 	else
 	  printf("the scanf gets %u %s\n", val, ex);
-    if(val == expr(ex, &flag) && flag==true)
+    if(val == expr(ex, &flag))
 	  printf("Success!\n");
 	else
-	  printf("FAIL real value %u\n", val);
+	  printf("FAIL real val %u\n", val);
 	//if(count%2 == 0)
 	  //printf("\n");
   }
