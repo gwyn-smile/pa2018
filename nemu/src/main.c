@@ -27,8 +27,6 @@ int main(int argc, char *argv[]) {
 	  printf("Success! ");
 	else
 	  printf("FAIL ");
-	if(count%10 == 0)
-	  printf("\n");
   }
   return 0;
 }
