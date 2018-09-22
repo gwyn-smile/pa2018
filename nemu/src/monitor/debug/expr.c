@@ -179,7 +179,7 @@ uint32_t eval(char *p, char *q) {
 	  }
 	}
 	if(flag == true) {
-	  printf("get the num: %d", atoi(p));
+	  printf("get the num: %d\n", atoi(p));
 	  return atoi(p);
     }
   }
