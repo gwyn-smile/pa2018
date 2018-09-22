@@ -7,8 +7,35 @@
 
 // this should be enough
 static char buf[65536];
+uint32_t buf_pos = 0;
+static inline void gen(char target);
+static inline void gen_num();
+static inline void gen_rand_op();
+
 static inline void gen_rand_expr() {
-  buf[0] = '\0';
+  switch (rand()%3) {
+	case 0: gen_num(); break;
+	case 1: gen('('); gen_rand_expr(); gen(')'); break;
+	default: gen_rand_expr(); gen_rand_op(); gen_rand_expr(); break;
+  }
+}
+
+static inline void gen(char target) {
+  buf[buf_pos++]=target;
+  buf[buf_pos]='\0';
+}
+static inline void gen_num() {
+  buf[buf_pos++] = '0' + rand()%10;
+  buf[buf_pos]='\0';
+}
+static inline void gen_rand_op() {
+  switch(rand()%4) {
+    case 0: buf[buf_pos++]='+'; break;
+	case 1: buf[buf_pos++]='-'; break;
+	case 2: buf[buf_pos++]='*'; break;
+	case 3: buf[buf_pos++]='/'; break;
+  }
+  buf[buf_pos]='\0';
 }
 
 static char code_buf[65536];
@@ -29,8 +56,9 @@ int main(int argc, char *argv[]) {
   }
   int i;
   for (i = 0; i < loop; i ++) {
+	buf_pos = 0;
     gen_rand_expr();
-
+    //strcpy(buf,"10/0");
     sprintf(code_buf, code_format, buf);
 
     FILE *fp = fopen(".code.c", "w");
