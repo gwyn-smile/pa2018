@@ -20,7 +20,8 @@ int main(int argc, char *argv[]) {
   int count = 0;
   while(!feof(fp)) { 
 	count++; 
-    fscanf(fp, "%u %s\n", &val, ex);
+    if(fscanf(fp, "%u %s\n", &val, ex) == -1)
+	  perror("fscanf fail");
     if(val == expr(ex, &flag) && flag==true)
 	  printf("%d: Success! ", count);
 	else
