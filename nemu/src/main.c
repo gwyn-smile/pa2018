@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
   FILE *fp = fopen("./tools/gen-expr/input", "r");
   if(fp == NULL)
     perror("input not found");
-  char* ex = NULL;
+  char ex[65536];
   uint32_t val = 0;
   bool flag = true;
   int count = 0;
