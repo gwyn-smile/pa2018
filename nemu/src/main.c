@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
   /* Receive commands from user. */
   //ui_mainloop(is_batch_mode);
   
-  FILE *fp = fopen("./tools", "r");
+  FILE *fp = fopen("./tools/gen-expr/input", "r");
   if(fp == NULL)
     perror("input not found");
   char* ex = NULL;
