@@ -25,8 +25,8 @@ int main(int argc, char *argv[]) {
     if(val == expr(ex, &flag) && flag==true)
 	  printf("%d: Success! ", count);
 	else
-	  printf("%d: Fail! ", count);
-	if(count%10 == 0)
+	  printf("%d: Fail! scanf value %u", count, val);
+	if(count%2 == 0)
 	  printf("\n");
   }
   return 0;
