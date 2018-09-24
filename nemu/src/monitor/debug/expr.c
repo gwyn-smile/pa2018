@@ -1,6 +1,6 @@
 #include "nemu.h"
 #include <stdlib.h>
-#include <math.h>
+
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
  */
@@ -244,8 +244,8 @@ uint32_t eval(int p, int q) {
 	  case TK_AND: return val1 && val2; break;
 	  case TK_GE: return val1 >= val2; break;
 	  case TK_LE: return val1 <= val2; break;
-	  case TK_LSHIFT: return val1 * pow(2, val2); break;
-	  case TK_RSHIFT: return val1 / pow(2, val2); break;
+	  case TK_LSHIFT: return val1 << val2; break;
+	  case TK_RSHIFT: return val1 >> val2; break;
 	  default: assert(0);
 	}
   }
