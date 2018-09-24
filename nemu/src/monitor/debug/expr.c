@@ -33,7 +33,7 @@ static struct rule {
   int token_type;
 } rules[] = {
 
-   /* TODO: Add more rules.  
+   /* TODO:  Add more rules.  
    * Pay attention to the precedence level of different rules.
    */
   {"\\(", '('},			// left bracket
@@ -218,27 +218,27 @@ uint32_t eval(int p, int q) {
 	return eval(p + 1, q - 1);
   }
   else {
-	int priority = 100, flag = 0;
+	int priority = -1, flag = 0;
 	int op = p, tmp;
 	for(tmp = p; tmp <= q; tmp++) {
 	  if(tokens[tmp].type == '(') {
 		flag++;
-	  }
+	  } 
 	  else if(tokens[tmp].type == ')') {
 		flag--;
-	  }
+	  } 
 	  else if(flag == 0) {
 	    for(int i = 0; i <= OP_NUM - 1; i++) {
 	      if(tokens[tmp].type == op_prio_list[i].type) {
 		    if(priority <= op_prio_list[i].rank) {
               op = tmp;
 		      priority = op_prio_list[i].rank;
-		    }
+		     }
 		    break;
-          }
-        }
-	  } 
-	} 
+           }
+        } 
+	  }  
+	}  
     printf("got op: %d\n", tokens[op].type);
 	int val1 = 0, val2 = 0;
 	if(tokens[op].type != TK_DEREF) {
