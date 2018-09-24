@@ -92,22 +92,20 @@ static bool make_token(char *e) {
 
   while (e[position] != '\0') {
     /* Try all rules one by one. */
-    printf("? e[pos]: %c\n",e[position]);
 	for (i = 0; i < NR_REGEX; i ++) {
        if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 
-        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-           i, rules[i].regex, position, substr_len, substr_len, substr_start);
+        //Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+        //  i, rules[i].regex, position, substr_len, substr_len, substr_start);
         position += substr_len;
-		
-		printf("pos: %d\n",position);
+
         /* TODO: Now a new token is recognized with rules[i]. Add codes
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
           */
-		 printf("* token_type: %d\n",rules[i].token_type);
+
          switch (rules[i].token_type) {
 
            case '+':case '*':case '-':case '/':case '(':case ')':case TK_EQ:case TK_AND:case TK_RSHIFT:case TK_LSHIFT:case TK_NOTEQ:case TK_GE:case TK_LE: {
@@ -116,7 +114,6 @@ static bool make_token(char *e) {
 		   }; break;
 
 	 	   case TK_NUM: {
-			  printf("match num\n");
 			  tokens[nr_token].type = rules[i].token_type;
 			  // if str_len > 32 then cut off the rest
               if (substr_len <= 32)
@@ -125,7 +122,6 @@ static bool make_token(char *e) {
 				  strncpy(tokens[nr_token].str, substr_start + substr_len - 32, 32);
 			  nr_token++;
 
-			  printf("%s\n",tokens[nr_token-1].str);
 		   }; break;
 
 		   default: {
@@ -138,7 +134,6 @@ static bool make_token(char *e) {
     }
 
     if (i == NR_REGEX) {
-      printf("the input:%s the len:%d\n",e,(int)strlen(e));
 	  printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
       return false;
      } 
@@ -164,7 +159,6 @@ uint32_t expr(char *e, bool *success) {
 	  tokens[i].type = TK_DEREF;
 	}
   }
-  printf("before enter val()\n");
   uint32_t val = eval(0, nr_token - 1);
   printf("the expr val is %u\n", val);
   return val;
@@ -188,7 +182,7 @@ bool check_parentheses(int p, int q) {
 }
 
 uint32_t eval(int p, int q) {
-  printf("each time: %d %d\n", p, q);
+  //printf("each time: %d %d\n", p, q);
 
   /*if( (*p) >= '0' && (*p) <= '9' && (*q) >= '0' && (*q) <= '9' && p <= q) {
 	bool flag = true;
@@ -239,7 +233,6 @@ uint32_t eval(int p, int q) {
         } 
 	  }  
 	}  
-    printf("got op: %d\n", tokens[op].type);
 	int val1 = 0, val2 = 0;
 	if(tokens[op].type != TK_DEREF) {
 	  val1 = eval(p, op - 1);
