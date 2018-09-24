@@ -122,7 +122,10 @@ static bool make_token(char *e) {
 
 			  //printf("%s\n",tokens[nr_token-1].str);
 		   }; break;
-		   default: TODO();
+		   default: {
+			 printf("Can't find token_type!\n");
+			 assert(0);
+		   }
          }
         break;
         }
