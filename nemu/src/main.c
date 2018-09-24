@@ -3,7 +3,7 @@
 int init_monitor(int, char *[]);
 void ui_mainloop(int);
 uint32_t expr(char*, bool*);
-void test();
+//void test();
 
 int main(int argc, char *argv[]) {
   /* Initialize the monitor. */
@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
   //init_monitor(argc, argv);
   /* Receive commands from user. */
   ui_mainloop(is_batch_mode);
-  test();
+  //test();
   return 0;
 }
 
