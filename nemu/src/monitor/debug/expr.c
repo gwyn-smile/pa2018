@@ -160,7 +160,7 @@ uint32_t expr(char *e, bool *success) {
 	}
   }
   uint32_t val = eval(0, nr_token - 1);
-  printf("the expr val is %u\n", val);
+  //printf("the expr val is %u\n", val);
   return val;
 }
 
@@ -183,22 +183,6 @@ bool check_parentheses(int p, int q) {
 
 uint32_t eval(int p, int q) {
   //printf("each time: %d %d\n", p, q);
-
-  /*if( (*p) >= '0' && (*p) <= '9' && (*q) >= '0' && (*q) <= '9' && p <= q) {
-	bool flag = true;
-	for(char *tmp = p; tmp != q+1; tmp++) {
-	  if(*tmp >= '0' && *tmp <='9')
-		continue;
-	  else {
-		flag = false;
-		break;
-	  }
-	}
-	if(flag == true) {
-	  //printf("get the num: %d\n", atoi(p));
-	  return atoi(p);
-    }
-  }*/
 
   if(p > q) {
 	//printf("%s %s\n", p, q);
