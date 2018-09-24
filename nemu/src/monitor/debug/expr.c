@@ -109,10 +109,12 @@ static bool make_token(char *e) {
           */
 		 printf("* token_type: %d\n",rules[i].token_type);
          switch (rules[i].token_type) {
+
            case '+':case '*':case '-':case '/':case '(':case ')':case TK_EQ:case TK_AND:case TK_RSHIFT:case TK_LSHIFT:case TK_NOTEQ:case TK_GE:case TK_LE: {
 			  tokens[nr_token++].type=rules[i].token_type;
 			  //printf("match + - * / () ==\n");
 		   }; break;
+
 	 	   case TK_NUM: {
 			  printf("match num\n");
 			  tokens[nr_token].type = rules[i].token_type;
@@ -125,6 +127,7 @@ static bool make_token(char *e) {
 
 			  printf("%s\n",tokens[nr_token-1].str);
 		   }; break;
+
 		   default: {
 			 printf("Can't find token_type!\n");
 			 assert(0);
@@ -163,7 +166,7 @@ uint32_t expr(char *e, bool *success) {
   }
 
   uint32_t val = eval(0, nr_token - 1);
-  //printf("the expr val is %u\n", val);
+  printf("the expr val is %u\n", val);
   return val;
 }
 
