@@ -164,7 +164,7 @@ uint32_t expr(char *e, bool *success) {
 	  tokens[i].type = TK_DEREF;
 	}
   }
-
+  printf("before enter val()\n");
   uint32_t val = eval(0, nr_token - 1);
   printf("the expr val is %u\n", val);
   return val;
