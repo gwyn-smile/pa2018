@@ -123,12 +123,12 @@ static bool make_token(char *e) {
 				  strncpy(tokens[nr_token].str, substr_start + substr_len - 32, 32);
 			  nr_token++;
 
-			  //printf("%s\n",tokens[nr_token-1].str);
+			  printf("%s\n",tokens[nr_token-1].str);
 		   }; break;
 		   default: {
 			 printf("Can't find token_type!\n");
 			 assert(0);
-		   }
+		   }; break;
          }
        break;
        }
