@@ -188,7 +188,7 @@ bool check_parentheses(int p, int q) {
 }
 
 uint32_t eval(int p, int q) {
-  //printf("each time: %s %s\n", p, q);
+  printf("each time: %d %d\n", p, q);
 
   /*if( (*p) >= '0' && (*p) <= '9' && (*q) >= '0' && (*q) <= '9' && p <= q) {
 	bool flag = true;
