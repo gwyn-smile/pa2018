@@ -110,7 +110,7 @@ static bool make_token(char *e) {
           case '+':case '*':case '-':case '/':case '(':case ')':case TK_EQ:case TK_AND:case TK_RSHIFT:case TK_LSHIFT:case TK_NOTEQ:case TK_GE:case TK_LE: {
 			  tokens[nr_token++].type=rules[i].token_type;
 			  //printf("match + - * / () ==\n");
-		   }; break;
+		  }; break;
 	 	  case TK_NUM: {
 			  tokens[nr_token].type=rules[i].token_type;
 			  // if str_len > 32 then cut off the rest
@@ -122,12 +122,11 @@ static bool make_token(char *e) {
 
 			  //printf("%s\n",tokens[nr_token-1].str);
 		   }; break;
-		  default: TODO();
+		   default: TODO();
          }
-
         break;
         }
-     }
+    }
 
     if (i == NR_REGEX) {
       printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
@@ -230,10 +229,14 @@ uint32_t eval(int p, int q) {
         }
 	  } 
 	} 
-    //printf("got op: %c\n", *op);
-	int val1 = eval(p, op - 1);
-	int val2 = eval(op + 1, q);
-    
+    printf("got op: %d\n", tokens[op].type);
+	int val1 = 0, val2 = 0;
+	if(tokens[op].type != TK_DEREF) {
+	  val1 = eval(p, op - 1);
+	  val2 = eval(op + 1, q);
+	}
+	else 
+      val1 = eval(op + 1, q);
 	switch (tokens[op].type) {
       case '-': return val1 - val2; break;
 	  case '+': return val1 + val2; break;
@@ -246,6 +249,7 @@ uint32_t eval(int p, int q) {
 	  case TK_LE: return val1 <= val2; break;
 	  case TK_LSHIFT: return val1 << val2; break;
 	  case TK_RSHIFT: return val1 >> val2; break;
+	  case TK_DEREF: return *((int*)((long)val1)); break;
 	  default: assert(0);
 	}
   }
