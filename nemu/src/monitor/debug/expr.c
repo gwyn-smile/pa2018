@@ -107,13 +107,14 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
           */
-		 printf("token_type: %d\n",rules[i].token_type);
+		 printf("* token_type: %d\n",rules[i].token_type);
          switch (rules[i].token_type) {
            case '+':case '*':case '-':case '/':case '(':case ')':case TK_EQ:case TK_AND:case TK_RSHIFT:case TK_LSHIFT:case TK_NOTEQ:case TK_GE:case TK_LE: {
 			  tokens[nr_token++].type=rules[i].token_type;
 			  //printf("match + - * / () ==\n");
 		   }; break;
 	 	   case TK_NUM: {
+			  printf("match num\n");
 			  tokens[nr_token].type = rules[i].token_type;
 			  // if str_len > 32 then cut off the rest
               if (substr_len <= 32)
