@@ -34,8 +34,8 @@ WP* new_wp() {
 	WP* free = NULL;	
 	if(head == NULL) {	
 	  head = free = free_;
-	  head->next = NULL;
 	  free_ = free_->next;
+	  head->next = NULL;
 	}
 	else {
 	//find the right position to insert the new watchpoint
