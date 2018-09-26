@@ -73,7 +73,7 @@ static int cmd_info(char *args) {
 	}
     printf("NUM\tWHAT\t\tEnb\n");
 	while(tmp != NULL) {
-	  printf("%d\t%s", tmp->NO, tmp->content);
+	  printf("%d\t%-16s", tmp->NO, tmp->content);
 	  if(tmp->status)
 		printf("yes\n");
 	  else
