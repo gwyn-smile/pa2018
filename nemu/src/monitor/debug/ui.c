@@ -117,6 +117,7 @@ static int cmd_watch(char *args) {
   char *arg = strtok(NULL, " ");
   bool flag;
   if(rt == NULL) {
+	printf("Get free watchpoint fail!\n");
 	return -1;
   }
   rt->val = expr(arg, &flag);
