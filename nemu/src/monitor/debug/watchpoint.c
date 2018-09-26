@@ -83,7 +83,7 @@ bool free_wp(int num) {
 	  m->next = m->next->next;
     }
   }
-  if(tmp == NULL) {
+  if(tmp->next == NULL) {
 	printf("Can't find the target watchpoint!\n");
 	return false;
   }
