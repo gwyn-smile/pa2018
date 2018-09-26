@@ -68,6 +68,8 @@ static int cmd_info(char *args) {
   else if(*arg == 'w') {
     printf("NUM\tWHAT\t\tEnb\n");
     WP* tmp = get_head();
+	if(tmp == NULL)
+	  printf("There is no using watchpoint!\n");
 	while(tmp != NULL) {
 	  printf("%d\t%-16s", tmp->NO, tmp->content);
 	  if(tmp->status)
