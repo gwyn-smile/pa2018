@@ -34,6 +34,7 @@ WP* new_wp() {
 	WP* free = NULL;	
 	if(head == NULL) {	
 	  head = free = free_;
+	  head->next = NULL;
 	  free_ = free_->next;
 	}
 	else {
@@ -53,8 +54,9 @@ WP* new_wp() {
 		free_ = free_->next;
 		free->next = tmp->next;
 		tmp->next = free;
-	  }
+	   }
 	}
+    free->status = true;
 	return free;
   }
 }

@@ -67,19 +67,19 @@ static int cmd_info(char *args) {
   } 
   else if(*arg == 'w') {
     WP* tmp = get_head();
-	if(tmp == NULL) {
+	if(tmp == NULL) { 
 	  printf("There is no using watchpoint!\n");
 	  return 0;
 	}
     printf("NUM\tWHAT\t\tEnb\n");
 	while(tmp != NULL) {
-	  printf("%d\t%-16s", tmp->NO, tmp->content);
+	  printf("%d\t%s", tmp->NO, tmp->content);
 	  if(tmp->status)
 		printf("yes\n");
 	  else
 		printf("no\n");
 	  tmp = tmp->next;
-	}
+	} 
   }
   else 
     printf("Unkown second argument(should be r/w)"); 

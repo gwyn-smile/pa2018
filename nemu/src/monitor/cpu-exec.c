@@ -49,7 +49,7 @@ void cpu_exec(uint64_t n) {
 	bool expr_flag, check_flag = false;
 	while(check != NULL) {
 	  new_val = expr(check->content, &expr_flag);
-	  if(check->val != new_val) {
+	  if(check->status && check->val != new_val) {
 		if(nemu_state != NEMU_STOP) {
 		  nemu_state = NEMU_STOP;
 		  check_flag = true;
