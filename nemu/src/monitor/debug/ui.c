@@ -9,6 +9,8 @@
 
 void cpu_exec(uint64_t);
 
+extern WP *head;
+
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
   static char *line_read = NULL;
@@ -41,8 +43,7 @@ static int cmd_si(char *args) {
   char *arg = strtok(NULL, " ");
   if(arg == NULL)
 	  steps_num = 1;
-  else
-  {
+  else {
     steps_num = atoi(arg);
   }
   if(steps_num >= 0)
@@ -67,7 +68,16 @@ static int cmd_info(char *args) {
     printf("%%edi: 0x%08x\n",reg_l(R_EDI));
   } 
   else if(*arg == 'w') {
-
+    printf("NUM\tWHAT\t\tEnb\n");
+    WP* tmp = head;
+	while(tmp != NULL) {
+	  printf("%d\t%-16s", tmp->NO, tmp->content);
+	  if(tmp->status)
+		printf("yes\n");
+	  else
+		printf("no\n");
+	  tmp = tmp->next;
+	}
   }
   else 
     printf("Unkown second argument(should be r/w)"); 
@@ -86,11 +96,11 @@ static int cmd_x(char *args) {
 
       //printf the start of memory
 	  printf("0x%08x: ",memory_pos);
-	 }
+	}
 	value = vaddr_read(memory_pos,4);
 	printf("0x%08x ",value);
 	memory_pos += 4;
-	}
+  }
   printf("\n");
   return 0;
 }
@@ -100,7 +110,26 @@ static int cmd_help(char *args);
 static int cmd_t(char *args) {
   char *arg = strtok(NULL, " ");
   bool flag;
-  expr(arg,&flag);
+  expr(arg, &flag);
+  return 0;
+}
+
+static int cmd_watch(char *args) {
+  WP* rt = new_wp();
+  char *arg = strtok(NULL, " ");
+  bool flag;
+  if(rt == NULL) {
+	return -1;
+  }
+  rt->val = expr(arg, &flag);
+  printf("watchpoint %d: %s\n", rt->NO, rt->content);
+  return 0;
+}
+
+static int cmd_d(char *args) {
+  int num = 0;
+  sscanf(args,"%d",&num);
+  free_wp(num);
   return 0;
 }
 
@@ -117,7 +146,9 @@ static struct {
   { "si", "Step into//For assembly instructions", cmd_si },
   { "info", "Print registers/watchpoints", cmd_info },
   { "x", "Print the value of memory", cmd_x },
-  { "t", "Test the function of tokens", cmd_t}
+  { "t", "Test the function of tokens", cmd_t},
+  { "watch", "Set new watchpoint", cmd_watch},
+  { "d", "Delete watch point", cmd_d}
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
@@ -152,7 +183,8 @@ void ui_mainloop(int is_batch_mode) {
   }
 
   while (1) {
-    char *str = rl_gets();
+
+	char *str = rl_gets();
     char *str_end = str + strlen(str);
 
     /* extract the first token as the command */
@@ -181,5 +213,6 @@ void ui_mainloop(int is_batch_mode) {
     }
 
     if (i == NR_CMD) { printf("Unknown command '%s'\n", cmd); }
+
   }
 }
