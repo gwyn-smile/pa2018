@@ -43,9 +43,8 @@ void cpu_exec(uint64_t n) {
 
 	//check the watchpoints to see if their values have changed
 	uint32_t expr(char* e, bool* success);
-	extern WP* head;
 
-	WP* check = head;
+	WP* check = get_head();
 	int new_val = 0;
 	bool expr_flag, check_flag = false;
 	while(check != NULL) {

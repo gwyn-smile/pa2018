@@ -9,8 +9,6 @@
 
 void cpu_exec(uint64_t);
 
-extern WP *head;
-
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
   static char *line_read = NULL;
@@ -69,7 +67,7 @@ static int cmd_info(char *args) {
   } 
   else if(*arg == 'w') {
     printf("NUM\tWHAT\t\tEnb\n");
-    WP* tmp = head;
+    WP* tmp = get_head();
 	while(tmp != NULL) {
 	  printf("%d\t%-16s", tmp->NO, tmp->content);
 	  if(tmp->status)
