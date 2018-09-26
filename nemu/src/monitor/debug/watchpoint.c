@@ -68,24 +68,24 @@ bool free_wp(int num) {
 	return false;
   }
   //find the target watchpoint and store in 'tmp'
-  if(tmp->NO == num)
+  if(tmp->NO == num) {
 	head = head->next;
+	tmp->next = NULL;
+  }
   else {
-    while(tmp != NULL) {
+    while(tmp->next != NULL) {
   	  if(tmp->next->NO == num) 
 	    break;
 	  else
         tmp = tmp->next;
+	  WP* m = tmp;
+	  tmp = tmp->next;
+	  m->next = m->next->next;
     }
   }
   if(tmp == NULL) {
 	printf("Can't find the target watchpoint!\n");
 	return false;
-  }
-  else {
-	WP* m = tmp;
-	tmp = tmp->next;
-	m->next = m->next->next;
   }
   printf("before find the pos\n");
   //find the right position to insert the free watchpoint
