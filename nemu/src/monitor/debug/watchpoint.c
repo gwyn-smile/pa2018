@@ -87,6 +87,7 @@ bool free_wp(int num) {
 	tmp = tmp->next;
 	m->next = m->next->next;
   }
+  printf("before find the pos\n");
   //find the right position to insert the free watchpoint
   WP* free = free_;
   if(free->NO > tmp->NO) {
