@@ -33,7 +33,7 @@ WP* new_wp() {
   else {
 	WP* free = NULL;	
 	if(head == NULL) {	
-	  head = free_;
+	  free = free_;
 	  free_ = free_->next;
 	}
 	else {
