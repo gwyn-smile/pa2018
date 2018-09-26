@@ -66,10 +66,12 @@ static int cmd_info(char *args) {
     printf("%%edi: 0x%08x\n",reg_l(R_EDI));
   } 
   else if(*arg == 'w') {
-    printf("NUM\tWHAT\t\tEnb\n");
     WP* tmp = get_head();
-	if(tmp == NULL)
+	if(tmp == NULL) {
 	  printf("There is no using watchpoint!\n");
+	  return 0;
+	}
+    printf("NUM\tWHAT\t\tEnb\n");
 	while(tmp != NULL) {
 	  printf("%d\t%-16s", tmp->NO, tmp->content);
 	  if(tmp->status)
