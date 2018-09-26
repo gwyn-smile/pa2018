@@ -121,6 +121,7 @@ static int cmd_watch(char *args) {
 	return -1;
   }
   rt->val = expr(arg, &flag);
+  rt->content = arg;
   printf("watchpoint %d: %s\n", rt->NO, rt->content);
   return 0;
 }
