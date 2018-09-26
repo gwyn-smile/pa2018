@@ -24,6 +24,19 @@ void init_wp_pool() {
 
 /* TODO: Implement the functionality of watchpoint */
 
+void print_wp() {
+  WP* busy = head, *free = free_;
+  while(busy != NULL) {
+	printf("watchpoint %d: %s\n", busy->NO, busy->content);
+	busy = busy->next;
+  }
+  while(free != NULL) {
+	printf("free %d, %s\n", free->NO, free->content);
+	free = free->next;
+  }
+  return;
+}
+
 //Add new using watch point to the head
 WP* new_wp() {
   if(free_ == NULL) {
@@ -57,6 +70,7 @@ WP* new_wp() {
 	   }
 	}
     free->status = true;
+	print_wp();
 	return free;
   }
 }
@@ -101,6 +115,7 @@ bool free_wp(int num) {
 	tmp->next = free->next;
 	free->next = tmp;
   }
+  print_wp();
   return true;
 }
 
