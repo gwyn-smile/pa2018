@@ -43,7 +43,7 @@ static struct rule {
   {"\\-", '-'},			// minus   
   
   {"[1-9][0-9]*|0", TK_NUM},	//%d numbers
-  {"0\\x[1-9][0-9]*|0", TK_XNUM},	//%x numbers
+  {"0x([1-9][0-9]*|0)", TK_XNUM},	//%x numbers
   {"$$e(ax|cx|dx|bx|sp|bp|si|di)", TK_REG},	// registers
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
@@ -99,8 +99,8 @@ static bool make_token(char *e) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 
-        //Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-        //  i, rules[i].regex, position, substr_len, substr_len, substr_start);
+        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+          i, rules[i].regex, position, substr_len, substr_len, substr_start);
         position += substr_len;
 
         /* TODO: Now a new token is recognized with rules[i]. Add codes
@@ -112,7 +112,6 @@ static bool make_token(char *e) {
 
            case '+':case '*':case '-':case '/':case '(':case ')':case TK_EQ:case TK_AND:case TK_RSHIFT:case TK_LSHIFT:case TK_NOTEQ:case TK_GE:case TK_LE:case TK_REG: {
 			  tokens[nr_token++].type = rules[i].token_type;
-			  //printf("match + - * / () ==\n");
 		   }; break;
 
 	 	   case TK_NUM: case TK_XNUM: {
@@ -162,7 +161,7 @@ uint32_t expr(char *e, bool *success) {
 	}
   }
   uint32_t val = eval(0, nr_token - 1);
-  //printf("the expr val is %u\n", val);
+  printf("the expr val is %u\n", val);
   return val;
 }
 
