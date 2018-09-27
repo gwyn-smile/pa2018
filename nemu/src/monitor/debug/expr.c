@@ -1,6 +1,6 @@
 #include "nemu.h"
 #include <stdlib.h>
-#include<string.h>
+#include <string.h>
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
  */
@@ -110,9 +110,14 @@ static bool make_token(char *e) {
 
          switch (rules[i].token_type) {
 
-           case '+':case '*':case '-':case '/':case '(':case ')':case TK_EQ:case TK_AND:case TK_RSHIFT:case TK_LSHIFT:case TK_NOTEQ:case TK_GE:case TK_LE:case TK_REG: {
+           case '+':case '*':case '-':case '/':case '(':case ')':case TK_EQ:case TK_AND:case TK_RSHIFT:case TK_LSHIFT:case TK_NOTEQ:case TK_GE:case TK_LE: {
 			  tokens[nr_token++].type = rules[i].token_type;
 		   }; break;
+		   
+		   case TK_REG: {
+		     tokens[nr_token++].type = rules[i].token_type;
+			 strncpy(tokens[nr_token].str, substr_start, substr_len);
+		   };
 
 	 	   case TK_NUM: case TK_XNUM: {
 			  tokens[nr_token].type = rules[i].token_type;
@@ -130,7 +135,7 @@ static bool make_token(char *e) {
 			 assert(0);
 		   }; break;
          }
-       break;
+         break;
        }
     }
 
