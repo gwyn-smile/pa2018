@@ -1,6 +1,6 @@
 #include "nemu.h"
 #include <stdlib.h>
-
+#include<string.h>
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
  */
