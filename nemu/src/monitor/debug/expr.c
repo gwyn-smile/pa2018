@@ -119,7 +119,7 @@ static bool make_token(char *e) {
 			 strncpy(tokens[nr_token].str, substr_start, substr_len);
 			 printf("the content of register: %s\n", tokens[nr_token].str);
 			 nr_token++;
-		   };
+		   }; break;
 
 	 	   case TK_NUM: case TK_XNUM: {
 			  tokens[nr_token].type = rules[i].token_type;
