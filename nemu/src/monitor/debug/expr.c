@@ -42,8 +42,8 @@ static struct rule {
   {"\\/", '/'},			// divide
   {"\\-", '-'},			// minus   
   
-  {"[1-9][0-9]*|0", TK_NUM},	//%d numbers
   {"0x([1-9][0-9]*|0)", TK_XNUM},	//%x numbers
+  {"[1-9][0-9]*|0", TK_NUM},	//%d numbers
   {"$$e(ax|cx|dx|bx|sp|bp|si|di)", TK_REG},	// registers
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
