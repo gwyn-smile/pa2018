@@ -10,7 +10,7 @@
 /* TODO: Add more token types */
 enum {
   TK_NOTYPE = 256, TK_EQ, TK_NUM, TK_NOTEQ, TK_AND,
-  TK_LE, TK_GE, TK_RSHIFT, TK_LSHIFT, TK_DEREF
+  TK_LE, TK_GE, TK_RSHIFT, TK_LSHIFT, TK_DEREF, TK_XNUM, TK_REG
 };
 
 static struct op_priority {
@@ -42,7 +42,9 @@ static struct rule {
   {"\\/", '/'},			// divide
   {"\\-", '-'},			// minus   
   
-  {"[1-9][0-9]*|0", TK_NUM},	// numbers
+  {"[1-9][0-9]*|0", TK_NUM},	//%d numbers
+  {"0x[1-9][0-9]*|0", TK_XNUM},	//%x numbers
+  {"$e(ax|cx|dx|bx|sp|bp|si|di)", TK_REG},	// registers
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
   {"==", TK_EQ},        // equal
@@ -108,12 +110,12 @@ static bool make_token(char *e) {
 
          switch (rules[i].token_type) {
 
-           case '+':case '*':case '-':case '/':case '(':case ')':case TK_EQ:case TK_AND:case TK_RSHIFT:case TK_LSHIFT:case TK_NOTEQ:case TK_GE:case TK_LE: {
-			  tokens[nr_token++].type=rules[i].token_type;
+           case '+':case '*':case '-':case '/':case '(':case ')':case TK_EQ:case TK_AND:case TK_RSHIFT:case TK_LSHIFT:case TK_NOTEQ:case TK_GE:case TK_LE:case TK_REG: {
+			  tokens[nr_token++].type = rules[i].token_type;
 			  //printf("match + - * / () ==\n");
 		   }; break;
 
-	 	   case TK_NUM: {
+	 	   case TK_NUM: case TK_XNUM: {
 			  tokens[nr_token].type = rules[i].token_type;
 			  // if str_len > 32 then cut off the rest
               if (substr_len <= 32)
@@ -190,7 +192,30 @@ uint32_t eval(int p, int q) {
     return false;
   }
   else if(p == q) {
-    return atoi(tokens[p].str);
+	if(tokens[p].type == TK_NUM)
+      return atoi(tokens[p].str);
+	else if(tokens[p].type == TK_XNUM)
+	  return strtol(tokens[p].str, NULL, 16);
+	else if(tokens[p].type == TK_REG) {
+	  if(strcmp(tokens[p].str, "$eax")==0)
+		return cpu.eax;
+	  else if(strcmp(tokens[p].str, "$ecx")==0)
+	    return cpu.ecx;
+	  else if(strcmp(tokens[p].str, "$edx")==0)
+	    return cpu.edx;
+	  else if(strcmp(tokens[p].str, "$ebx")==0)
+	    return cpu.ebx;
+	  else if(strcmp(tokens[p].str, "$esp")==0)
+	    return cpu.esp;
+	  else if(strcmp(tokens[p].str, "$ebp")==0)
+	    return cpu.ebp;
+	  else if(strcmp(tokens[p].str, "$esi")==0)
+	    return cpu.esi;
+	  else if(strcmp(tokens[p].str, "$edi")==0)
+	    return cpu.edi;
+      else
+		printf("Can't find the target register!\n");
+	}
   }
   else if(check_parentheses(p,q) == true) {
 	return eval(p + 1, q - 1);
