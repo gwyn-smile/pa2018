@@ -17,4 +17,7 @@ bool free_wp(int num);
 WP* new_wp();
 WP* get_head();
 
+bool en_wp(int num);
+bool dis_wp(int num);
+
 #endif

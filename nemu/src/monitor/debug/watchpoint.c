@@ -119,3 +119,35 @@ bool free_wp(int num) {
   return true;
 }
 
+bool en_wp(int num) {
+  WP* tmp = head;
+  while(tmp != NULL) {
+	if(tmp->NO == num) {
+	  tmp->status = true;
+	  break;
+	}
+	tmp = tmp->next;
+  }
+  if(tmp == NULL) {
+    printf("This watchpoint is not being used!\n");
+	return false;
+  }
+  return true;
+}
+
+bool dis_wp(int num) {
+  WP* tmp = head;
+  while(tmp != NULL) {
+	if(tmp->NO == num) {
+	  tmp->status = false;
+	  break;
+	}
+	tmp = tmp->next;
+  }
+  if(tmp == NULL) {
+    printf("This watchpoint is not being used!\n");
+	return false;
+  }
+  return true;
+
+}

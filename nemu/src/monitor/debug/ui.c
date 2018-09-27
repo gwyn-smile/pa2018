@@ -137,6 +137,20 @@ static int cmd_d(char *args) {
   return 0;
 }
 
+static int cmd_en(char* args) {
+  int num = 0;
+  sscanf(args, "%d", &num);
+  en_wp(num);
+  return 0;
+}
+
+static int cmd_dis(char* args) {
+  int num = 0;
+  sscanf(args, "%d", &num);
+  dis_wp(num);
+  return 0;
+}
+
 static struct {
   char *name;
   char *description;
@@ -152,7 +166,9 @@ static struct {
   { "x", "Print the value of memory", cmd_x },
   { "t", "Test the function of tokens", cmd_t},
   { "watch", "Set new watchpoint", cmd_watch},
-  { "d", "Delete watch point", cmd_d}
+  { "d", "Delete watch point", cmd_d},
+  { "enable", "Enable the watchpoint", cmd_en},
+  { "disable", "Disable the watchpoint", cmd_dis}
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
