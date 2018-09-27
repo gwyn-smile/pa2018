@@ -70,7 +70,7 @@ WP* new_wp() {
 	   }
 	}
     free->status = true;
-	print_wp();
+	//print_wp();
 	return free;
   }
 }
@@ -115,7 +115,7 @@ bool free_wp(int num) {
 	tmp->next = free->next;
 	free->next = tmp;
   }
-  print_wp();
+  //print_wp();
   return true;
 }
 
