@@ -115,8 +115,9 @@ static bool make_token(char *e) {
 		   }; break;
 		   
 		   case TK_REG: {
-		     tokens[nr_token++].type = rules[i].token_type;
+		     tokens[nr_token].type = rules[i].token_type;
 			 strncpy(tokens[nr_token].str, substr_start, substr_len);
+			 nr_token++;
 		   };
 
 	 	   case TK_NUM: case TK_XNUM: {
