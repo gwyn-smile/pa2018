@@ -44,7 +44,7 @@ static struct rule {
   
   {"0x([1-9a-fA-F][0-9a-fA-F]*|0)", TK_XNUM},	//%x numbers
   {"[1-9][0-9]*|0", TK_NUM},	//%d numbers
-  {"\\%e(ax|cx|dx|bx|sp|bp|si|di)", TK_REG},	// registers
+  {"\\%e(ax|cx|dx|bx|sp|bp|si|di|ip)", TK_REG},	// registers
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
   {"==", TK_EQ},        // equal
@@ -218,6 +218,8 @@ uint32_t eval(int p, int q) {
 	    return cpu.esi;
 	  else if(strcmp(tokens[p].str, "\%edi")==0)
 	    return cpu.edi;
+	  else if(strcmp(tokens[p].str, "\%eip")==0)
+	    return cpu.eip;
       else
 		printf("Can't find the target register!\n");
 	}
