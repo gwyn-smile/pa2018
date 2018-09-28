@@ -42,7 +42,7 @@ static struct rule {
   {"\\/", '/'},			// divide
   {"\\-", '-'},			// minus   
   
-  {"0x([1-9][0-9]*|0)", TK_XNUM},	//%x numbers
+  {"0x([1-9a-fA-F][0-9a-fA-F]*|0)", TK_XNUM},	//%x numbers
   {"[1-9][0-9]*|0", TK_NUM},	//%d numbers
   {"\\%e(ax|cx|dx|bx|sp|bp|si|di)", TK_REG},	// registers
   {" +", TK_NOTYPE},    // spaces
@@ -167,7 +167,7 @@ uint32_t expr(char *e, bool *success) {
 	}
   }
   uint32_t val = eval(0, nr_token - 1);
-  printf("the expr val is %u\n", val);
+  //printf("the expr val is %u\n", val);
   return val;
 }
 
