@@ -44,7 +44,7 @@ static struct rule {
   
   {"0x([1-9][0-9]*|0)", TK_XNUM},	//%x numbers
   {"[1-9][0-9]*|0", TK_NUM},	//%d numbers
-  {"\\$e(ax|cx|dx|bx|sp|bp|si|di)", TK_REG},	// registers
+  {"\\%e(ax|cx|dx|bx|sp|bp|si|di)", TK_REG},	// registers
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
   {"==", TK_EQ},        // equal
@@ -202,21 +202,21 @@ uint32_t eval(int p, int q) {
 	else if(tokens[p].type == TK_XNUM)
 	  return strtol(tokens[p].str, NULL, 16);
 	else if(tokens[p].type == TK_REG) {
-	  if(strcmp(tokens[p].str, "$eax")==0)
+	  if(strcmp(tokens[p].str, "\%eax")==0)
 		return cpu.eax;
-	  else if(strcmp(tokens[p].str, "$ecx")==0)
+	  else if(strcmp(tokens[p].str, "\%ecx")==0)
 	    return cpu.ecx;
-	  else if(strcmp(tokens[p].str, "$edx")==0)
+	  else if(strcmp(tokens[p].str, "\%edx")==0)
 	    return cpu.edx;
-	  else if(strcmp(tokens[p].str, "$ebx")==0)
+	  else if(strcmp(tokens[p].str, "\%ebx")==0)
 	    return cpu.ebx;
-	  else if(strcmp(tokens[p].str, "$esp")==0)
+	  else if(strcmp(tokens[p].str, "\%esp")==0)
 	    return cpu.esp;
-	  else if(strcmp(tokens[p].str, "$ebp")==0)
+	  else if(strcmp(tokens[p].str, "\%ebp")==0)
 	    return cpu.ebp;
-	  else if(strcmp(tokens[p].str, "$esi")==0)
+	  else if(strcmp(tokens[p].str, "\%esi")==0)
 	    return cpu.esi;
-	  else if(strcmp(tokens[p].str, "$edi")==0)
+	  else if(strcmp(tokens[p].str, "\%edi")==0)
 	    return cpu.edi;
       else
 		printf("Can't find the target register!\n");
