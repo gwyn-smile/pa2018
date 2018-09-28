@@ -10,7 +10,7 @@
 /* TODO: Add more token types */
 enum {
   TK_NOTYPE = 256, TK_EQ, TK_NUM, TK_NOTEQ, TK_AND,
-  TK_LE, TK_GE, TK_RSHIFT, TK_LSHIFT, TK_DEREF, TK_XNUM, TK_REG
+  TK_LE, TK_GE, TK_RSHIFT, TK_LSHIFT, TK_DEREF, TK_XNUM, TK_REG, TK_NEG
 };
 
 static struct op_priority {
@@ -18,7 +18,7 @@ static struct op_priority {
   int rank;
 } op_prio_list[] = {
   
-  {TK_DEREF, 1}, {'*', 3}, {'/', 3}, {'+', 4}, {'-', 4},
+  {TK_DEREF, 1}, {TK_NEG, 1}, {'*', 3}, {'/', 3}, {'+', 4}, {'-', 4},
   {TK_LSHIFT, 5}, {TK_RSHIFT, 5},
   {TK_GE, 6}, {TK_LE, 6},
   {TK_EQ, 7}, {TK_NOTEQ, 7},
@@ -40,7 +40,7 @@ static struct rule {
   {"\\)", ')'},			// right bracket
   {"\\*", '*'},			// multiply && get the address
   {"\\/", '/'},			// divide
-  {"\\-", '-'},			// minus   
+  {"\\-", '-'},			// minus & negate
   
   {"0x([1-9a-fA-F][0-9a-fA-F]*|0)", TK_XNUM},	//%x numbers
   {"[1-9][0-9]*|0", TK_NUM},	//%d numbers
@@ -165,6 +165,9 @@ uint32_t expr(char *e, bool *success) {
     if(tokens[i].type == '*' && (i==0||(tokens[i - 1].type!=TK_NUM&&tokens[i-1].type!=')'))) {
 	  tokens[i].type = TK_DEREF;
 	}
+	if(tokens[i].type == '-' && (i==0||tokens[i-1].type=='(') {
+	  tokens[i].type = TK_NEG;
+	}
   }
   uint32_t val = eval(0, nr_token - 1);
   //printf("the expr val is %u\n", val);
@@ -250,7 +253,7 @@ uint32_t eval(int p, int q) {
 	  }  
 	}  
 	int val1 = 0, val2 = 0;
-	if(tokens[op].type != TK_DEREF) {
+	if(tokens[op].type != TK_DEREF && tokens[op].type != TK_NEG) {
 	  val1 = eval(p, op - 1);
 	  val2 = eval(op + 1, q);
 	}
@@ -269,6 +272,7 @@ uint32_t eval(int p, int q) {
 	  case TK_LSHIFT: return val1 << val2; break;
 	  case TK_RSHIFT: return val1 >> val2; break;
 	  case TK_DEREF: return *((int*)((long)val1)); break;
+	  case TK_NEG: return - val1; break;
 	  default: assert(0);
 	}
   }
