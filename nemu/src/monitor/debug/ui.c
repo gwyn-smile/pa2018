@@ -82,7 +82,7 @@ static int cmd_info(char *args) {
 	} 
   }
   else 
-    printf("Unkown second argument(should be r/w)"); 
+    printf("Unkown second argument(should be r/w)!\n"); 
   return 0;
 }
 

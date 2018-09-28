@@ -60,6 +60,7 @@ void cpu_exec(uint64_t n) {
 	  }
 	  //update the value of watchpoint
 	  check->val = new_val;
+	  check = check->next;
 	}
 	if(check_flag == true)
 	  return;
