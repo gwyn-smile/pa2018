@@ -92,7 +92,7 @@ static bool make_token(char *e) {
 
   nr_token = 0;
 
-  while (e[position] != '\0') {
+  while(e[position] != '\0') {
     /* Try all rules one by one. */
 	for (i = 0; i < NR_REGEX; i ++) {
        if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
@@ -144,7 +144,7 @@ static bool make_token(char *e) {
 	  printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
       return false;
      } 
-   }  
+   }   
 
   return true;
 }
@@ -153,21 +153,21 @@ uint32_t eval(int p, int q);
 bool check_parentheses(int p, int q);
 
 uint32_t expr(char *e, bool *success) {
-  if (!make_token(e)) {
+  if(!make_token(e)) {
     *success = false;
     return 0;
   }
   else
-	*success = true;
+		*success = true;
 
   /* TODO: Insert codes to evaluate the expression. */
   for(int i = 0;i <= nr_token - 1;i++) {
     if(tokens[i].type == '*' && (i==0||(tokens[i - 1].type!=TK_NUM&&tokens[i-1].type!=')'))) {
-	  tokens[i].type = TK_DEREF;
-	}
-	if(tokens[i].type == '-' && (i==0||tokens[i-1].type=='(')) {
-	  tokens[i].type = TK_NEG;
-	}
+		  tokens[i].type = TK_DEREF;
+		}
+		if(tokens[i].type == '-' && (i==0||tokens[i-1].type=='(')) {
+		  tokens[i].type = TK_NEG;
+		}
   }
   uint32_t val = eval(0, nr_token - 1);
   //printf("the expr val is %u\n", val);
@@ -192,11 +192,10 @@ bool check_parentheses(int p, int q) {
 }
 
 uint32_t eval(int p, int q) {
-  //printf("each time: %d %d\n", p, q);
 
   if(p > q) {
-	//printf("%s %s\n", p, q);
-	assert(0);
+		printf("The explain process error!\n");
+		assert(0);
     return false;
   }
   else if(p == q) {
@@ -208,7 +207,7 @@ uint32_t eval(int p, int q) {
 	  if(strcmp(tokens[p].str, "$eax")==0)
 		return cpu.eax;
 	  else if(strcmp(tokens[p].str, "$ecx")==0)
-	    return cpu.ecx;
+			return cpu.ecx;
 	  else if(strcmp(tokens[p].str, "$edx")==0)
 	    return cpu.edx;
 	  else if(strcmp(tokens[p].str, "$ebx")==0)
@@ -228,7 +227,7 @@ uint32_t eval(int p, int q) {
 	}
   }
   else if(check_parentheses(p,q) == true) {
-	return eval(p + 1, q - 1);
+	  return eval(p + 1, q - 1);
   }
   else {
 	int priority = -1, flag = 0;
