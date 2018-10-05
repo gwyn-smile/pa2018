@@ -44,7 +44,7 @@ static struct rule {
   
   {"0x([1-9a-fA-F][0-9a-fA-F]*|0)", TK_XNUM},	//%x numbers
   {"[1-9][0-9]*|0", TK_NUM},	//%d numbers
-  {"$(ax|cx|dx|bx|sp|bp|si|di|ip)", TK_REG},	// registers
+  {"\\$e(ax|cx|dx|bx|sp|bp|si|di|ip)", TK_REG},	// registers
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
   {"==", TK_EQ},        // equal
