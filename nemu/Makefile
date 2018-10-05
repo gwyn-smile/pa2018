@@ -49,12 +49,8 @@ NEMU_EXEC := $(BINARY) $(ARGS)
 $(BINARY): $(OBJS)
 	$(call git_commit, "compile")
 	@echo + LD $@
+	@$(CC) $(INCLUDES) -E $< | grep -ve '^#' | bcpp
 	@$(LD) -O2 -rdynamic $(SO_LDLAGS) -o $@ $^ -lSDL2 -lreadline -ldl
-	@$(CC) $(INCLUDES) -E $< | grep -ve '^#' | bcpp > $(basename $@).i
-
-pre: $(BINARY)
-	@$(LD) -O2 -rdynamic $(SO_LDLAGS) -o $@ $^ -lSDL2 -lreadline -ldl
-	@$(CC) $(INCLUDES) -E $< | grep -ve '^#' | bcpp > $(basename $@).i
 
 run: $(BINARY)
 	$(call git_commit, "run")
