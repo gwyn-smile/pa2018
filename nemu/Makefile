@@ -31,7 +31,6 @@ $(OBJ_DIR)/%.o: src/%.c
 	@echo + CC $<
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(SO_CFLAGS) -c -o $@ $<
-	@$(CC) $(INCLUDES) -E $< | grep -ve '^#' | bcpp > $(basename $@).i
 
 # Depencies
 -include $(OBJS:.o=.d)
@@ -51,6 +50,7 @@ $(BINARY): $(OBJS)
 	$(call git_commit, "compile")
 	@echo + LD $@
 	@$(LD) -O2 -rdynamic $(SO_LDLAGS) -o $@ $^ -lSDL2 -lreadline -ldl
+	@$(CC) $(INCLUDES) -E $< | grep -ve '^#' | bcpp > $(basename $@).i
 
 run: $(BINARY)
 	$(call git_commit, "run")
