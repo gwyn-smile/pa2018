@@ -181,9 +181,9 @@ bool check_parentheses(int p, int q) {
     if(tokens[tmp].type == '(')
 	  count++;
 	else if(tokens[tmp].type == ')')
-      count--;
+    count--;
 	if(count <= 0)
-      return false;
+    return false;
   }
   if(count == 1 && flag)
     return true;
