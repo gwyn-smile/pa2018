@@ -112,7 +112,7 @@ static int cmd_help(char *args);
 static int cmd_t(char *args) {
   char *arg = strtok(NULL, " ");
   bool flag;
-  expr(arg, &flag);
+  printf("the value is %u\n",expr(arg, &flag));
   return 0;
 }
 
