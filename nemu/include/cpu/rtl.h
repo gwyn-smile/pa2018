@@ -6,6 +6,7 @@
 #include "cpu/relop.h"
 #include "cpu/rtl-wrapper.h"
 
+extern CPU_state cpu;
 extern rtlreg_t t0, t1, t2, t3, at;
 
 void decoding_set_jmp(bool is_jmp);
@@ -159,15 +160,17 @@ static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
 }
 
 static inline void rtl_push(const rtlreg_t* src1) {
-  // esp <- esp - 4
-  // M[esp] <- src1
-  TODO();
+  // ESP = ESP - 4
+	// M[esp] <- src1
+  cpu.esp = cpu.esp - 4;
+  paddr_write(cpu.esp, *src1, 32);
 }
 
 static inline void rtl_pop(rtlreg_t* dest) {
   // dest <- M[esp]
   // esp <- esp + 4
-  TODO();
+  paddr_write(cpu.esp, *dest, 32);
+	cpu.esp = cpu.esp + 4;
 }
 
 static inline void rtl_setrelopi(uint32_t relop, rtlreg_t *dest,
