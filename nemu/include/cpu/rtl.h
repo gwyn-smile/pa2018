@@ -164,8 +164,11 @@ static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
 }
 
 static inline void rtl_top(rtlreg_t* dest) {
-	*dest = paddr_read(cpu.esp, 4);
-	Log("the esp is %08x", cpu.esp);
+	int i=1;
+	for(i=0; i<=10; i++) {
+		*dest = paddr_read(cpu.esp + i*4, 4);
+		Log("%d: %08x", i, *dest);
+	}
 }
 
 static inline void rtl_push(const rtlreg_t* src1) {
@@ -173,17 +176,11 @@ static inline void rtl_push(const rtlreg_t* src1) {
 	// M[esp] <- src1
   cpu.esp = cpu.esp - 4;
   paddr_write(cpu.esp, *src1, 32);
-	uint32_t m;
-	rtl_top(&m);
-	Log("after the push, top is %08x", m);
 }
 
 static inline void rtl_pop(rtlreg_t* dest) {
   // dest <- M[esp]
   // esp <- esp + 4
-	uint32_t m;
-	rtl_top(&m);
-	Log("before the pop, top is %08x", m);
   *dest = paddr_read(cpu.esp, 4);
 	cpu.esp = cpu.esp + 4;
 }
