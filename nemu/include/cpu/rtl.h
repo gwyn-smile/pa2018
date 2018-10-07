@@ -179,6 +179,7 @@ static inline void rtl_pop(rtlreg_t* dest) {
 
 static inline void rtl_top(rtlreg_t* dest) {
 	*dest = paddr_read(cpu.esp, 4);
+	Log("the esp is %x", cpu.esp);
 }
 
 static inline void rtl_setrelopi(uint32_t relop, rtlreg_t *dest,

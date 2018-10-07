@@ -28,7 +28,7 @@ make_EHelper(call) {
   // the target address is calculated at the decode stage
   rtl_push(eip);
 	Log("the call intend to push %x", *eip);
-
+	
 	uint32_t got;
 	rtl_top(&got);
 	Log("the call actually push %x", got);
@@ -38,9 +38,6 @@ make_EHelper(call) {
 }
 
 make_EHelper(ret) {
-  uint32_t got;
-	rtl_top(&got);
-	Log("the top is %x", got);
 
 	rtl_pop(eip);
 	Log("the ret got %x", *eip);
