@@ -38,7 +38,7 @@ make_EHelper(call) {
 }
 
 make_EHelper(ret) {
-
+  rtl_top(&id_dest->val);
 	rtl_pop(eip);
 	Log("the ret got %x", *eip);
 
