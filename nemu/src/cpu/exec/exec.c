@@ -93,7 +93,7 @@ opcode_entry opcode_table [512] = {
   /* 0x48 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x4c */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x50 */	IDEX(push_SI, push), IDEX(push_SI, push), IDEX(push_SI, push), IDEX(push_SI, push),
-  /* 0x54 */	IDEX(push_SI, push), EMPTY, IDEX(push_SI, push), IDEX(push_SI, push),
+  /* 0x54 */	IDEX(push_SI, push), IDEX(r, push), IDEX(push_SI, push), IDEX(push_SI, push),
   /* 0x58 */	IDEX(push_SI, pop), IDEX(push_SI, pop), IDEX(push_SI, pop), IDEX(push_SI, pop),
   /* 0x5c */	IDEX(push_SI, pop), IDEX(push_SI, pop), IDEX(push_SI, pop), IDEX(push_SI, pop),
   /* 0x60 */	EMPTY, EMPTY, EMPTY, EMPTY,
