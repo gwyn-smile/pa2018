@@ -167,7 +167,7 @@ static inline void rtl_top(rtlreg_t* dest) {
 	int i;
 	for(i=9; i>=0; i--) {
 		*dest = paddr_read(cpu.esp + i*4, 4);
-		Log("%d: %08x", i, *dest);
+		Log("0x%08x: %08x", cpu.esp+i*4, *dest);
 	}
 }
 
