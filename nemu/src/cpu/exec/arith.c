@@ -9,13 +9,13 @@ make_EHelper(sub) {
 	if(id_dest->type == OP_TYPE_REG && id_src->type == OP_TYPE_REG) {
 		Log("before sub %08x", reg_l(id_dest->reg));
 		rtl_sub(&id_dest->val, &id_dest->val, &id_src->val); 
-		rtl_mv(&id_dest->val, &reg_l(id_dest->reg));
+		rtl_mv(&reg_l(id_dest->val), &id_dest->val);
 		Log("after sub %08x", reg_l(id_dest->reg));
 	}
 	else if(id_dest->type == OP_TYPE_REG && id_src->type == OP_TYPE_IMM) {
 		Log("before sub %08x", reg_l(id_dest->reg));
 		rtl_sub_i(&id_dest->val, &id_dest->val, &id_src->val);
-		rtl_mv(&id_dest->val, &reg_l(id_dest->reg));
+		rtl_mv(&reg_l(id_dest->val), &id_dest->val);
 		Log("after sub %08x", reg_l(id_dest->reg));
 	}
   print_asm_template2(sub);
