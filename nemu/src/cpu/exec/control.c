@@ -37,7 +37,7 @@ make_EHelper(ret) {
 
 	rtl_pop(eip);
 
-	assert(0);
+	
 	rtl_j(*eip);
   print_asm("ret");
 }
