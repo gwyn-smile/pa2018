@@ -7,14 +7,10 @@ make_EHelper(mov) {
 
 make_EHelper(push) {
   rtl_push(&(id_dest->val));
-	rtl_top(&id_dest->val);
-	Log("after the push, top is %08x", id_dest->val);
   print_asm_template1(push);
 }
 
 make_EHelper(pop) {
-	rtl_top(&id_dest->val);
-	Log("before the pop, top is %08x", id_dest->val);
   rtl_pop(&(id_dest->val));
   print_asm_template1(pop);
 }
