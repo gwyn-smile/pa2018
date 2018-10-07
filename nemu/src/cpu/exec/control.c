@@ -31,7 +31,7 @@ make_EHelper(call) {
 	uint32_t got;
 	rtl_pop(&got);
 	Log("the call actually push %x", got);
-	assert(0);
+	rtl_push(eip);
 	rtl_j(decoding.jmp_eip);	
   print_asm("call %x", decoding.jmp_eip);
 }
