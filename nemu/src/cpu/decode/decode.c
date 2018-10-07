@@ -40,7 +40,12 @@ static inline make_DopHelper(SI) {
    * pointed by `eip'. Interpret the result as a signed immediate,
    * and assign it to op->simm.
    */
-  op->simm = (int32_t) instr_fetch(eip, op->width);
+	if(op->width == 4)
+		op->simm = (int32_t) instr_fetch(eip, op->width);
+	else {
+		op->simm = (int32_t) instr_fetch(eip, op->width);
+		op->simm = (op->simm	<< 24) >> 24;
+	}
   rtl_li(&op->val, op->simm);
 
 #ifdef DEBUG

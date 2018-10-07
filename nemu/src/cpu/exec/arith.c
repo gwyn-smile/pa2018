@@ -1,14 +1,16 @@
 #include "cpu/exec.h"
 
 make_EHelper(add) {
-  TODO();
-
+	TODO();  
   print_asm_template2(add);
 }
 
-make_EHelper(sub) {
-  TODO();
-
+make_EHelper(sub) { 
+	if(id_dest->type == OP_TYPE_REG && id_src->type == OP_TYPE_REG)
+		rtl_sub(&id_dest->val, &id_dest->val, &id_src->val);
+	else if(id_dest->type == OP_TYPE_REG && id_src->type == OP_TYPE_IMM)
+		rtl_sub_i(&id_dest->val, &id_dest->val, &id_src->val);
+	
   print_asm_template2(sub);
 }
 
