@@ -174,13 +174,17 @@ static inline void rtl_top(rtlreg_t* dest) {
 static inline void rtl_push(const rtlreg_t* src1) {
   // ESP = ESP - 4
 	// M[esp] <- src1
-  cpu.esp = cpu.esp - 4;
+  uint32_t val;
+  rtl_top(&val);
+	cpu.esp = cpu.esp - 4;
   paddr_write(cpu.esp, *src1, 32);
 }
 
 static inline void rtl_pop(rtlreg_t* dest) {
   // dest <- M[esp]
   // esp <- esp + 4
+  uint32_t val;
+	rtl_top(&val);
   *dest = paddr_read(cpu.esp, 4);
 	cpu.esp = cpu.esp + 4;
 }
