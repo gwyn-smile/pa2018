@@ -176,7 +176,7 @@ static inline void rtl_push(const rtlreg_t* src1) {
 	// M[esp] <- src1
   uint32_t val;
 	cpu.esp = cpu.esp - 4;
-  paddr_write(cpu.esp, *src1, 32);
+  paddr_write(cpu.esp, *src1, 4);
   rtl_top(&val);
 }
 
