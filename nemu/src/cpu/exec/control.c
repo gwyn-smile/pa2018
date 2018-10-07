@@ -29,18 +29,13 @@ make_EHelper(call) {
   rtl_push(eip);
 	Log("the call intend to push %x", *eip);
 	
-	uint32_t got;
-	rtl_top(&got);
-	Log("the call actually push %x", got);
-	
 	rtl_j(decoding.jmp_eip);	
   print_asm("call %x", decoding.jmp_eip);
 }
 
 make_EHelper(ret) {
-  rtl_top(&id_dest->val);
+
 	rtl_pop(eip);
-	Log("the ret got %x", *eip);
 
 	assert(0);
 	rtl_j(*eip);
