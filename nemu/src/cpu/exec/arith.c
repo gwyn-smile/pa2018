@@ -6,11 +6,16 @@ make_EHelper(add) {
 }
 
 make_EHelper(sub) { 
-	if(id_dest->type == OP_TYPE_REG && id_src->type == OP_TYPE_REG)
-		rtl_sub(&id_dest->val, &id_dest->val, &id_src->val);
-	else if(id_dest->type == OP_TYPE_REG && id_src->type == OP_TYPE_IMM)
+	if(id_dest->type == OP_TYPE_REG && id_src->type == OP_TYPE_REG) {
+		Log("before sub %08x", id_dest->val);
+		rtl_sub(&id_dest->val, &id_dest->val, &id_src->val); 
+		Log("after sub %08x", id_dest->val);
+	}
+	else if(id_dest->type == OP_TYPE_REG && id_src->type == OP_TYPE_IMM) {
+		Log("before sub %08x", id_dest->val);
 		rtl_sub_i(&id_dest->val, &id_dest->val, &id_src->val);
-	
+		Log("after sub %08x", id_dest->val);
+	}
   print_asm_template2(sub);
 }
 

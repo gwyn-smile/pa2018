@@ -165,7 +165,7 @@ static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
 
 static inline void rtl_top(rtlreg_t* dest) {
 	*dest = paddr_read(cpu.esp, 4);
-	Log("the esp is %x", cpu.esp);
+	Log("the esp is %08x", cpu.esp);
 }
 
 static inline void rtl_push(const rtlreg_t* src1) {
