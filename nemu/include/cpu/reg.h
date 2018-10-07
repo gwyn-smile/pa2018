@@ -32,8 +32,8 @@ typedef struct {
 		   rtlreg_t esp, ebp, esi, edi;
 	  };
   };
-
   vaddr_t eip;
+	vaddr_t EFLAGS;
 
 } CPU_state;
 
