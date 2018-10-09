@@ -14,7 +14,10 @@ make_EHelper(and) {
 }
 
 make_EHelper(xor) {
+	Log("before xor %08x", reg_l(id_dest->reg));
 	rtl_xor(&(id_dest->val), &(id_dest->val), &(id_src->val));
+	rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
+	Log("after xor %08x", reg_l(id_dest->reg));
   print_asm_template2(xor);
 }
 
