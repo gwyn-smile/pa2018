@@ -8,8 +8,18 @@ make_EHelper(test) {
 }
 
 make_EHelper(and) {
-  TODO();
-
+	if(id_dest->type == OP_TYPE_REG && id_src->type == OP_TYPE_REG) {
+		Log("before and %08x", reg_l(id_dest->reg));
+		rtl_and(&id_dest->val, &id_dest->val, &id_src->val); 
+		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
+		Log("after and %08x", reg_l(id_dest->reg));
+	}
+	else if(id_dest->type == OP_TYPE_REG && id_src->type == OP_TYPE_IMM) {
+		Log("before and %08x", reg_l(id_dest->reg));
+		rtl_and_i(&id_dest->val, &id_dest->val, &id_src->val);
+		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
+		Log("after and %08x", reg_l(id_dest->reg));
+	}
   print_asm_template2(and);
 }
 
