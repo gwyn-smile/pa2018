@@ -216,12 +216,20 @@ make_rtl_setget_eflags(SF)
 
 static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   // eflags.ZF <- is_zero(result[width * 8 - 1 .. 0])
-  TODO();
+  // the seventh bit
+	if(*result == 0)
+		cpu.EFLAGS = cpu.EFLAGS | 0x40;
+	else
+		cpu.EFLAGS = cpu.EFLAGS & 0xbf;
 }
 
 static inline void rtl_update_SF(const rtlreg_t* result, int width) {
   // eflags.SF <- is_sign(result[width * 8 - 1 .. 0])
-  TODO();
+  // the eighth bit
+	if((*result >> ((width << 3) - 1)) == 1)
+		cpu.EFLAGS = cpu.EFLAGS | 0x80;
+	else
+		cpu.EFLAGS = cpu.EFLAGS & 0x7f;
 }
 
 static inline void rtl_update_ZFSF(const rtlreg_t* result, int width) {
