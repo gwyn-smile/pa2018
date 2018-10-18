@@ -1,5 +1,5 @@
 #include "cpu/exec.h"
-
+make_EHelper(nop);
 make_EHelper(mov);
 
 make_EHelper(operand_size);
