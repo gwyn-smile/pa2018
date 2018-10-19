@@ -1,20 +1,31 @@
 #include "cpu/exec.h"
 
 make_EHelper(add) {
-	TODO();  
+	if(id_src->type == OP_TYPE_IMM) {
+		//Log("before add %08x", reg_l(id_dest->reg));
+		rtl_add_i(&id_dest->val, &id_dest->val, &id_src->val);
+		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
+		//Log("after add %08x", reg_l(id_dest->reg));
+	}
+	else {
+		//Log("before add %08x", reg_l(id_dest->reg));
+		rtl_add(&id_dest->val, &id_dest->val, &id_src->val);
+		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
+		//Log("after add %08x", reg_l(id_dest->reg));
+	}
   print_asm_template2(add);
 }
 
 make_EHelper(sub) { 
-	if(id_dest->type == OP_TYPE_REG && id_src->type == OP_TYPE_REG) {
+	if(id_src->type == OP_TYPE_IMM) {
 		//Log("before sub %08x", reg_l(id_dest->reg));
-		rtl_sub(&id_dest->val, &id_dest->val, &id_src->val); 
+		rtl_sub_i(&id_dest->val, &id_dest->val, &id_src->val);
 		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
 		//Log("after sub %08x", reg_l(id_dest->reg));
 	}
-	else if(id_dest->type == OP_TYPE_REG && id_src->type == OP_TYPE_IMM) {
+	else {
 		//Log("before sub %08x", reg_l(id_dest->reg));
-		rtl_sub_i(&id_dest->val, &id_dest->val, &id_src->val);
+		rtl_sub(&id_dest->val, &id_dest->val, &id_src->val); 
 		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
 		//Log("after sub %08x", reg_l(id_dest->reg));
 	}

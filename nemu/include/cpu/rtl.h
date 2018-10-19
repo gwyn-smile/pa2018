@@ -82,6 +82,10 @@ static inline void rtl_sub_i(rtlreg_t* dest, const rtlreg_t* src, const rtlreg_t
 	*dest = *src - *imm8;
 }
 
+static inline void rtl_add_i(rtlreg_t* dest, const rtlreg_t* src, const rtlreg_t* imm8) {
+	*dest = *src + *imm8;
+}
+
 static inline void rtl_and_i(rtlreg_t* dest, const rtlreg_t* src, const rtlreg_t* imm8) {
 	*dest = *src & *imm8;
 }
