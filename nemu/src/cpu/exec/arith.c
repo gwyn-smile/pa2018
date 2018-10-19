@@ -9,6 +9,7 @@ make_EHelper(add) {
 	}
 	else {
 		Log("before add %08x", reg_l(id_dest->reg));
+		Log("before add the src %08x", reg_l(id_dest->reg));
 		rtl_add(&id_dest->val, &id_dest->val, &id_src->val);
 		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
 		Log("after add %08x", reg_l(id_dest->reg));
