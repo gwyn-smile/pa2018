@@ -1,6 +1,8 @@
 #include "cpu/exec.h"
-
+uint32_t wrong = 0;
+uint32_t right = 1;
 make_EHelper(add) {
+	uint32_t tmp = id_dest->val;
 	if(id_src->type == OP_TYPE_IMM) {
 		//Log("before add %08x", reg_l(id_dest->reg));
 		rtl_add_i(&id_dest->val, &id_dest->val, &id_src->val);
@@ -14,10 +16,25 @@ make_EHelper(add) {
 		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
 		Log("after add %08x", reg_l(id_dest->reg));
 	}
+	//EFLAGS
+	rtl_update_ZFSF(&id_dest->val, 4);
+	
+	if(id_dest->val < id_src->val || id_dest->val < tmp)
+		rtl_set_CF(&right);
+	else
+		rtl_set_CF(&wrong);
+
+	tmp = ~tmp + 1;
+	if((tmp >> 31) == (id_src->val >> 31) && (id_dest->val >> 31) != (tmp >> 31))
+		rtl_set_OF(&right);
+	else
+		rtl_set_OF(&wrong);
+
   print_asm_template2(add);
 }
 
-make_EHelper(sub) { 
+make_EHelper(sub) {
+	uint32_t tmp = id_dest->val;	
 	if(id_src->type == OP_TYPE_IMM) {
 		//Log("before sub %08x", reg_l(id_dest->reg));
 		rtl_sub_i(&id_dest->val, &id_dest->val, &id_src->val);
@@ -30,17 +47,42 @@ make_EHelper(sub) {
 		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
 		//Log("after sub %08x", reg_l(id_dest->reg));
 	}
+	//EFLAGS
+
+	rtl_update_ZFSF(&id_dest->val, 4);
+
+	if(tmp < id_src->val)
+		rtl_set_CF(&right);
+	else
+		rtl_set_CF(&wrong);
+
+	if((tmp >> 31) == (id_src->val >> 31) && (id_dest->val >> 31) != (tmp >> 31))
+		rtl_set_OF(&right);
+	else
+		rtl_set_OF(&wrong);
   print_asm_template2(sub);
 }
 
 make_EHelper(cmp) {
-	if(id_src->type == OP_TYPE_IMM) {
+	uint32_t tmp = id_dest->val;	
+
+	if(id_src->type == OP_TYPE_IMM)
 		rtl_sub_i(&id_dest->val, &id_dest->val, &id_src->val);
-	}
-	else {
-		rtl_sub(&id_dest->val, &id_dest->val, &id_src->val); 
-	}
-  
+	else
+		rtl_sub(&id_dest->val, &id_dest->val, &id_src->val);
+	//EFLAGS
+	
+	rtl_update_ZFSF(&id_dest->val, 4);
+
+	if(tmp < id_src->val)
+		rtl_set_CF(&right);
+	else
+		rtl_set_CF(&wrong);
+
+	if((tmp >> 31) == (id_src->val >> 31) && (id_dest->val >> 31) != (tmp >> 31))
+		rtl_set_OF(&right);
+	else
+		rtl_set_OF(&wrong);
 
   print_asm_template2(cmp);
 }
