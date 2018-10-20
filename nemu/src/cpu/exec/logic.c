@@ -1,8 +1,8 @@
 #include "cpu/exec.h"
 #include "cpu/cc.h"
 
-uint32_t right = 1;
-uint32_t wrong = 0;
+//uint32_t right = 1;
+//uint32_t wrong = 0;
 make_EHelper(test) {
   TODO();
 

@@ -1,6 +1,4 @@
 #include "cpu/exec.h"
-uint32_t wrong = 0;
-uint32_t right = 1;
 make_EHelper(add) {
 	uint32_t tmp = id_dest->val;
 	if(id_src->type == OP_TYPE_IMM) {
