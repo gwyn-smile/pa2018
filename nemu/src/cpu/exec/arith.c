@@ -1,7 +1,7 @@
 #include "cpu/exec.h"
 
-const extern uint32_t eflags_1;
-const extern uint32_t eflags_0;
+const uint32_t eflags_1;
+const uint32_t eflags_0 = 0;
 make_EHelper(add) {
 	uint32_t tmp = id_dest->val;
 	if(id_src->type == OP_TYPE_IMM) {
