@@ -60,6 +60,7 @@ static inline make_DopHelper(SI) {
 static inline make_DopHelper(a) {
   op->type = OP_TYPE_REG;
   op->reg = R_EAX;
+	Log("in the DopHelper(a), width is %d", op->width);
   if (load_val) {
     rtl_lr(&op->val, R_EAX, op->width);
   }
