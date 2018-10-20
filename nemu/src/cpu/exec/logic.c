@@ -3,9 +3,13 @@
 const uint32_t eflags_1 = 1;
 const uint32_t eflags_0 = 0;
 make_EHelper(test) {
-  TODO();
-
-  print_asm_template2(test);
+	rtl_and(&id_dest->val, &id_dest->val, &id_src->val);
+	//eflags
+	rtl_set_OF(&eflags_0);
+	rtl_set_CF(&eflags_0);
+	rtl_update_ZFSF(&id_dest->val, id_dest->width);
+  
+	print_asm_template2(test);
 }
 
 make_EHelper(and) {
