@@ -60,7 +60,7 @@ static inline make_DopHelper(SI) {
 static inline make_DopHelper(a) {
   op->type = OP_TYPE_REG;
   op->reg = R_EAX;
-	Log("in the DopHelper(a), width is %d", op->width);
+	//Log("in the DopHelper(a), width is %d", op->width);
   if (load_val) {
     rtl_lr(&op->val, R_EAX, op->width);
   }
@@ -312,7 +312,7 @@ make_DHelper(in_dx2a) {
 #endif
 
   decode_op_a(eip, id_dest, false);
-	Log("in_dx2a after the width is %d", id_dest->width);
+	//Log("in_dx2a after the width is %d", id_dest->width);
 }
 
 make_DHelper(out_a2I) {
