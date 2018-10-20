@@ -43,15 +43,23 @@ make_EHelper(iret) {
 
 make_EHelper(in) {
 	Log("the in instr:the width is %d", id_dest->val); 
-  assert(id_dest->width == 2 || id_dest->width == 4);
+  assert(id_dest->width == 1 || id_dest->width == 2 || id_dest->width == 4);
 	if(ioperm(id_src->val, 1, 1) != 0) {
 		perror("ioperm");
 		assert(0);
 	}
-	if(id_dest->width == 2)
+	if(id_dest->width == 1) {
 		id_dest->val = inb(id_src->val);
-	else
+		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
+	}
+	else if(id_dest->width == 2) {
+		id_dest->val = inw(id_src->val);
+		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
+	}
+	else {
 		id_dest->val = inl(id_src->val);
+		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
+	}
   print_asm_template2(in);
 
 #if defined(DIFF_TEST)
