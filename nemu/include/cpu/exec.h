@@ -8,6 +8,7 @@ typedef void (*EHelper) (vaddr_t *);
 
 #include "cpu/decode.h"
 
+#include <sys/io.h>
 extern const uint32_t eflags_0;
 extern const uint32_t eflags_1;
 

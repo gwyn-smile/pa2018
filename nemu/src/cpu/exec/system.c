@@ -42,8 +42,15 @@ make_EHelper(iret) {
 }
 
 make_EHelper(in) {
-  TODO();
-
+  assert(id_dest->width == 2 || id_dest->width == 4);
+	if(ioperm(id_src->val, 1, 1) != 0) {
+		perror("ioperm");
+		assert(0);
+	}
+	if(id_dest->width == 2)
+		id_dest->val = inb(id_src->val);
+	else
+		id_dest->val = inl(id_src->val);
   print_asm_template2(in);
 
 #if defined(DIFF_TEST)

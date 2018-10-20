@@ -28,3 +28,5 @@ make_EHelper(cmp);
 make_EHelper(setcc);
 
 make_EHelper(jcc);
+
+make_EHelper(in);
