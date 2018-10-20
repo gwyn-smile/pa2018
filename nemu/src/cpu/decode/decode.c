@@ -312,6 +312,7 @@ make_DHelper(in_dx2a) {
 #endif
 
   decode_op_a(eip, id_dest, false);
+	Log("in_dx2a after the width is %d", id_dest->width);
 }
 
 make_DHelper(out_a2I) {
