@@ -1,7 +1,5 @@
 #include "cpu/exec.h"
 
-//extern const uint32_t eflags_1;
-//extern const uint32_t eflags_0;
 make_EHelper(add) {
 	uint32_t tmp = id_dest->val;
 	if(id_src->type == OP_TYPE_IMM) {
@@ -11,12 +9,13 @@ make_EHelper(add) {
 		//Log("after add %08x", reg_l(id_dest->reg));
 	}
 	else {
-		Log("before add %08x", reg_l(id_dest->reg));
+		//Log("before add %08x", reg_l(id_dest->reg));
 		//Log("before add the src %08x", reg_l(id_dest->reg));
 		rtl_add(&id_dest->val, &id_dest->val, &id_src->val);
 		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
 		Log("after add %08x", reg_l(id_dest->reg));
 	}
+	Log("before add: the dest is %08x, the src is %08x, the result is %08x", tmp, id_src->val, id_dest->val);
 	//EFLAGS
 	rtl_update_ZFSF(&id_dest->val, 4);
 	
@@ -30,7 +29,13 @@ make_EHelper(add) {
 		rtl_set_OF(&eflags_1);
 	else
 		rtl_set_OF(&eflags_0);
-
+	//check
+	uint32_t get_zf,get_sf,get_cf,get_of;
+	rtl_get_ZF(&get_zf);
+	rtl_get_SF(&get_sf);
+	rtl_get_CF(&get_cf);
+	rtl_get_OF(&get_of);
+	Log("after set: ZF=%u SF=%u CF=%u OF=%u",get_zf,get_sf,get_cf,get_of);
   print_asm_template2(add);
 }
 
