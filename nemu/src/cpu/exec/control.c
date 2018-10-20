@@ -1,6 +1,5 @@
 #include "cpu/exec.h"
 #include "cpu/cc.h"
-
 make_EHelper(jmp) {
   // the target address is calculated at the decode stage
   rtl_j(decoding.jmp_eip);

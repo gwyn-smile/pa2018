@@ -1,6 +1,7 @@
 #include "cpu/exec.h"
 #include "cpu/cc.h"
-
+const uint32_t eflags_1 = 1;
+const uint32_t eflags_0 = 0;
 make_EHelper(test) {
   TODO();
 
