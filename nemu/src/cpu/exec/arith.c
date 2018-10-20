@@ -13,7 +13,7 @@ make_EHelper(add) {
 		//Log("before add the src %08x", reg_l(id_dest->reg));
 		rtl_add(&id_dest->val, &id_dest->val, &id_src->val);
 		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
-		Log("after add %08x", reg_l(id_dest->reg));
+		//Log("after add %08x", reg_l(id_dest->reg));
 	}
 	Log("before add: the dest is %08x, the src is %08x, the result is %08x", tmp, id_src->val, id_dest->val);
 	//EFLAGS
