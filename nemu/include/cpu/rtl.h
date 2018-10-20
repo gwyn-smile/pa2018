@@ -90,6 +90,10 @@ static inline void rtl_and_i(rtlreg_t* dest, const rtlreg_t* src, const rtlreg_t
 	*dest = *src & *imm8;
 }
 
+static inline void rtl_xor_i(rtlreg_t* dest, const rtlreg_t* src, const rtlreg_t* imm8) {
+	*dest = *src ^ *imm8;
+}
+
 static inline void interpret_rtl_lm(rtlreg_t *dest, const rtlreg_t* addr, int len) {
   *dest = vaddr_read(*addr, len);
 }

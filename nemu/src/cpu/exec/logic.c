@@ -1,6 +1,8 @@
 #include "cpu/exec.h"
 #include "cpu/cc.h"
 
+uint32_t right = 1;
+uint32_t wrong = 0;
 make_EHelper(test) {
   TODO();
 
@@ -8,26 +10,44 @@ make_EHelper(test) {
 }
 
 make_EHelper(and) {
-	if(id_dest->type == OP_TYPE_REG && id_src->type == OP_TYPE_REG) {
-		Log("before and %08x", reg_l(id_dest->reg));
-		rtl_and(&id_dest->val, &id_dest->val, &id_src->val); 
-		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
-		Log("after and %08x", reg_l(id_dest->reg));
-	}
-	else if(id_dest->type == OP_TYPE_REG && id_src->type == OP_TYPE_IMM) {
-		Log("before and %08x", reg_l(id_dest->reg));
+	if(id_src->type == OP_TYPE_IMM) {
+		//Log("before and %08x", reg_l(id_dest->reg));
 		rtl_and_i(&id_dest->val, &id_dest->val, &id_src->val);
 		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
-		Log("after and %08x", reg_l(id_dest->reg));
+		//Log("after and %08x", reg_l(id_dest->reg));
 	}
-  print_asm_template2(and);
+	else {
+		//Log("before and %08x", reg_l(id_dest->reg));
+		rtl_and(&id_dest->val, &id_dest->val, &id_src->val); 
+		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
+		//Log("after and %08x", reg_l(id_dest->reg));
+	}
+	//eflags
+	rtl_set_OF(&wrong);
+	rtl_set_CF(&wrong);
+
+	rtl_update_ZFSF(&id_dest->val, 4);
+  
+	print_asm_template2(and);
 }
 
 make_EHelper(xor) {
-	//Log("before xor %08x", reg_l(id_dest->reg));
-	rtl_xor(&(id_dest->val), &(id_dest->val), &(id_src->val));
-	rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
-	//Log("after xor %08x", reg_l(id_dest->reg));
+	if(id_src->type == OP_TYPE_IMM) {
+		rtl_xor_i(&(id_dest->val), &(id_dest->val), &(id_src->val));
+		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);	
+	}
+	else {
+		//Log("before xor %08x", reg_l(id_dest->reg));
+		rtl_xor(&(id_dest->val), &(id_dest->val), &(id_src->val));
+		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
+		//Log("after xor %08x", reg_l(id_dest->reg));
+	}
+	//eflags
+	rtl_set_OF(&wrong);
+	rtl_set_CF(&wrong);
+
+	rtl_update_ZFSF(&id_dest->val, 4);
+
   print_asm_template2(xor);
 }
 
