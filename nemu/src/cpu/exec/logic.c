@@ -1,8 +1,6 @@
 #include "cpu/exec.h"
 #include "cpu/cc.h"
 
-//uint32_t right = 1;
-//uint32_t wrong = 0;
 make_EHelper(test) {
   TODO();
 
@@ -23,8 +21,8 @@ make_EHelper(and) {
 		//Log("after and %08x", reg_l(id_dest->reg));
 	}
 	//eflags
-	rtl_set_OF(&wrong);
-	rtl_set_CF(&wrong);
+	rtl_set_OF(&eflags_0);
+	rtl_set_CF(&eflags_1);
 
 	rtl_update_ZFSF(&id_dest->val, 4);
   
@@ -43,8 +41,8 @@ make_EHelper(xor) {
 		//Log("after xor %08x", reg_l(id_dest->reg));
 	}
 	//eflags
-	rtl_set_OF(&wrong);
-	rtl_set_CF(&wrong);
+	rtl_set_OF(&eflags_0);
+	rtl_set_CF(&eflags_0);
 
 	rtl_update_ZFSF(&id_dest->val, 4);
 

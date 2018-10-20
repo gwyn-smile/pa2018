@@ -18,15 +18,15 @@ make_EHelper(add) {
 	rtl_update_ZFSF(&id_dest->val, 4);
 	
 	if(id_dest->val < id_src->val || id_dest->val < tmp)
-		rtl_set_CF(&right);
+		rtl_set_CF(&eflags_1);
 	else
-		rtl_set_CF(&wrong);
+		rtl_set_CF(&eflags_0);
 
 	tmp = ~tmp + 1;
 	if((tmp >> 31) == (id_src->val >> 31) && (id_dest->val >> 31) != (tmp >> 31))
-		rtl_set_OF(&right);
+		rtl_set_OF(&eflags_1);
 	else
-		rtl_set_OF(&wrong);
+		rtl_set_OF(&eflags_0);
 
   print_asm_template2(add);
 }
@@ -50,14 +50,14 @@ make_EHelper(sub) {
 	rtl_update_ZFSF(&id_dest->val, 4);
 
 	if(tmp < id_src->val)
-		rtl_set_CF(&right);
+		rtl_set_CF(&eflags_1);
 	else
-		rtl_set_CF(&wrong);
+		rtl_set_CF(&eflags_0);
 
 	if((tmp >> 31) == (id_src->val >> 31) && (id_dest->val >> 31) != (tmp >> 31))
-		rtl_set_OF(&right);
+		rtl_set_OF(&eflags_1);
 	else
-		rtl_set_OF(&wrong);
+		rtl_set_OF(&eflags_0);
   print_asm_template2(sub);
 }
 
@@ -73,14 +73,14 @@ make_EHelper(cmp) {
 	rtl_update_ZFSF(&id_dest->val, 4);
 
 	if(tmp < id_src->val)
-		rtl_set_CF(&right);
+		rtl_set_CF(&eflags_1);
 	else
-		rtl_set_CF(&wrong);
+		rtl_set_CF(&eflags_0);
 
 	if((tmp >> 31) == (id_src->val >> 31) && (id_dest->val >> 31) != (tmp >> 31))
-		rtl_set_OF(&right);
+		rtl_set_OF(&eflags_1);
 	else
-		rtl_set_OF(&wrong);
+		rtl_set_OF(&eflags_0);
 
   print_asm_template2(cmp);
 }
