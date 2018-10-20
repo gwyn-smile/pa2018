@@ -42,6 +42,7 @@ make_EHelper(iret) {
 }
 
 make_EHelper(in) {
+	Log("the in instr:the width is %d", id_dest->val); 
   assert(id_dest->width == 2 || id_dest->width == 4);
 	if(ioperm(id_src->val, 1, 1) != 0) {
 		perror("ioperm");
