@@ -1,34 +1,45 @@
 #include "cpu/exec.h"
 
 make_EHelper(add) {
-	uint32_t tmp = id_dest->val;
-	if(id_src->type == OP_TYPE_IMM) {
-		//Log("before add %08x", reg_l(id_dest->reg));
-		rtl_add_i(&id_dest->val, &id_dest->val, &id_src->val);
-		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
-		//Log("after add %08x", reg_l(id_dest->reg));
-	}
-	else {
-		//Log("before add %08x", reg_l(id_dest->reg));
-		//Log("before add the src %08x", reg_l(id_dest->reg));
-		rtl_add(&id_dest->val, &id_dest->val, &id_src->val);
-		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
-		//Log("after add %08x", reg_l(id_dest->reg));
-	}
-	Log("before add: the dest is %08x, the src is %08x, the result is %08x", tmp, id_src->val, id_dest->val);
+	/*at = id_dest->val;
+	//Log("before add %08x", reg_l(id_dest->reg));
+	//Log("before add the src %08x", reg_l(id_dest->reg));
+	rtl_add(&id_dest->val, &id_dest->val, &id_src->val);
+  operand_write(id_dest, &id_dest->val);
+
+	Log("before add: the dest is %08x, the src is %08x, the result is %08x", at, id_src->val, id_dest->val);
 	//EFLAGS
-	rtl_update_ZFSF(&id_dest->val, 4);
+	rtl_update_ZFSF(&id_dest->val, id_dest->width);
 	
-	if(id_dest->val < id_src->val || id_dest->val < tmp)
+	if(id_dest->val < id_src->val || id_dest->val < at)
 		rtl_set_CF(&eflags_1);
 	else
 		rtl_set_CF(&eflags_0);
 
-	tmp = ~tmp + 1;
-	if((tmp >> 31) == (id_src->val >> 31) && (id_dest->val >> 31) != (tmp >> 31))
+	at = ~at + 1;
+	if((at >> 31) == (id_src->val >> 31) && (id_dest->val >> 31) != (at >> 31))
 		rtl_set_OF(&eflags_1);
 	else
 		rtl_set_OF(&eflags_0);
+	*/
+
+  rtl_add(&t2, &id_dest->val, &id_src->val);
+  rtl_setrelop(RELOP_LTU, &t3, &t2, &id_dest->val);
+  operand_write(id_dest, &t2);
+
+  rtl_update_ZFSF(&t2, id_dest->width);
+
+  rtl_setrelop(RELOP_LTU, &t0, &t2, &id_dest->val);
+  rtl_or(&t0, &t3, &t0);
+  rtl_set_CF(&t0);
+
+  rtl_xor(&t0, &id_dest->val, &id_src->val);
+  rtl_not(&t0, &t0);
+  rtl_xor(&t1, &id_dest->val, &t2);
+  rtl_and(&t0, &t0, &t1);
+  rtl_msb(&t0, &t0, id_dest->width);
+  rtl_set_OF(&t0);
+
 	//check
 	uint32_t get_zf,get_sf,get_cf,get_of;
 	rtl_get_ZF(&get_zf);
@@ -40,29 +51,21 @@ make_EHelper(add) {
 }
 
 make_EHelper(sub) {
-	uint32_t tmp = id_dest->val;	
-	if(id_src->type == OP_TYPE_IMM) {
-		//Log("before sub %08x", reg_l(id_dest->reg));
-		rtl_sub_i(&id_dest->val, &id_dest->val, &id_src->val);
-		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
-		//Log("after sub %08x", reg_l(id_dest->reg));
-	}
-	else {
-		//Log("before sub %08x", reg_l(id_dest->reg));
-		rtl_sub(&id_dest->val, &id_dest->val, &id_src->val); 
-		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
-		//Log("after sub %08x", reg_l(id_dest->reg));
-	}
+	at = id_dest->val;
+	//Log("before sub %08x", reg_l(id_dest->reg));
+	rtl_sub(&id_dest->val, &id_dest->val, &id_src->val); 
+  operand_write(id_dest, &id_dest->val);
+	//rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
+	//Log("after sub %08x", reg_l(id_dest->reg));
 	//EFLAGS
+	rtl_update_ZFSF(&id_dest->val, id_dest->width);
 
-	rtl_update_ZFSF(&id_dest->val, 4);
-
-	if(tmp < id_src->val)
+	if(at < id_src->val)
 		rtl_set_CF(&eflags_1);
 	else
 		rtl_set_CF(&eflags_0);
 
-	if((tmp >> 31) == (id_src->val >> 31) && (id_dest->val >> 31) != (tmp >> 31))
+	if((at >> 31) == (id_src->val >> 31) && (id_dest->val >> 31) != (at >> 31))
 		rtl_set_OF(&eflags_1);
 	else
 		rtl_set_OF(&eflags_0);
@@ -70,22 +73,20 @@ make_EHelper(sub) {
 }
 
 make_EHelper(cmp) {
-	uint32_t tmp = id_dest->val;	
+	at = id_dest->val;	
 
-	if(id_src->type == OP_TYPE_IMM)
-		rtl_sub_i(&id_dest->val, &id_dest->val, &id_src->val);
-	else
-		rtl_sub(&id_dest->val, &id_dest->val, &id_src->val);
+	rtl_sub(&id_dest->val, &id_dest->val, &id_src->val);
 	//EFLAGS
 	
-	rtl_update_ZFSF(&id_dest->val, 4);
+	rtl_update_ZFSF(&id_dest->val, id_dest->width);
 
-	if(tmp < id_src->val)
+	if(at < id_src->val)
 		rtl_set_CF(&eflags_1);
 	else
 		rtl_set_CF(&eflags_0);
+	rtl_msb(&id_dest->val, &id_dest->val, id_dest->width);
 
-	if((tmp >> 31) == (id_src->val >> 31) && (id_dest->val >> 31) != (tmp >> 31))
+	if((at >> 31) == (id_src->val >> 31) && (id_dest->val >> 31) != (at >> 31))
 		rtl_set_OF(&eflags_1);
 	else
 		rtl_set_OF(&eflags_0);
