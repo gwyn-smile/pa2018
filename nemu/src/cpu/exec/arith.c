@@ -7,7 +7,7 @@ void check_eflags() {
 	rtl_get_SF(&get_sf);
 	rtl_get_CF(&get_cf);
 	rtl_get_OF(&get_of);
-	Log("after set: ZF=%u SF=%u CF=%u OF=%u",get_zf,get_sf,get_cf,get_of);
+	Log("check eflags: ZF=%u SF=%u CF=%u OF=%u",get_zf,get_sf,get_cf,get_of);
 }
 
 make_EHelper(add) {
