@@ -13,18 +13,16 @@ make_EHelper(test) {
 }
 
 make_EHelper(and) {
+	//Log("before and %08x", reg_l(id_dest->reg));
 	if(id_src->type == OP_TYPE_IMM) {
-		//Log("before and %08x", reg_l(id_dest->reg));
 		rtl_and_i(&id_dest->val, &id_dest->val, &id_src->val);
-		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
-		//Log("after and %08x", reg_l(id_dest->reg));
 	}
 	else {
-		//Log("before and %08x", reg_l(id_dest->reg));
 		rtl_and(&id_dest->val, &id_dest->val, &id_src->val); 
-		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
-		//Log("after and %08x", reg_l(id_dest->reg));
 	}
+	//Log("after and %08x", reg_l(id_dest->reg));
+  
+	operand_write(id_dest, &id_dest->val);
 	//eflags
 	rtl_set_OF(&eflags_0);
 	rtl_set_CF(&eflags_1);
@@ -35,27 +33,34 @@ make_EHelper(and) {
 }
 
 make_EHelper(xor) {
+	//Log("before xor %08x", reg_l(id_dest->reg));
 	if(id_src->type == OP_TYPE_IMM) {
-		rtl_xor_i(&(id_dest->val), &(id_dest->val), &(id_src->val));
-		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);	
+		rtl_xor_i(&id_dest->val, &id_dest->val, &id_src->val);
 	}
 	else {
-		//Log("before xor %08x", reg_l(id_dest->reg));
-		rtl_xor(&(id_dest->val), &(id_dest->val), &(id_src->val));
-		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
-		//Log("after xor %08x", reg_l(id_dest->reg));
+		rtl_xor(&id_dest->val, &id_dest->val, &id_src->val);
 	}
+	//Log("after xor %08x", reg_l(id_dest->reg));
+  
+	operand_write(id_dest, &id_dest->val);
 	//eflags
 	rtl_set_OF(&eflags_0);
 	rtl_set_CF(&eflags_0);
 
-	rtl_update_ZFSF(&id_dest->val, 4);
+	rtl_update_ZFSF(&id_dest->val, id_dest->width);
 
   print_asm_template2(xor);
 }
 
 make_EHelper(or) {
-  TODO();
+  rtl_or(&id_dest->val, &id_dest->val, &id_src->val);
+  
+	operand_write(id_dest, &id_dest->val);
+	//eflags
+	rtl_set_OF(&eflags_0);
+	rtl_set_CF(&eflags_0);
+
+	rtl_update_ZFSF(&id_dest->val, id_dest->val);
 
   print_asm_template2(or);
 }

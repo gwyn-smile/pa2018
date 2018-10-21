@@ -50,16 +50,14 @@ make_EHelper(in) {
 	}
 	if(id_dest->width == 1) {
 		id_dest->val = inb(id_src->val);
-		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
 	}
 	else if(id_dest->width == 2) {
 		id_dest->val = inw(id_src->val);
-		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
 	}
 	else {
 		id_dest->val = inl(id_src->val);
-		rtl_mv(&reg_l(id_dest->reg), &id_dest->val);
 	}
+  operand_write(id_dest, &id_dest->val);
   print_asm_template2(in);
 
 #if defined(DIFF_TEST)
