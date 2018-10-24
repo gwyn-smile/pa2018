@@ -1,7 +1,12 @@
 #include "cpu/exec.h"
+#include "device/port-io.h"
 
 void difftest_skip_ref();
 void difftest_skip_dut();
+
+uint32_t pio_read_l(ioaddr_t addr);
+uint32_t pio_read_w(ioaddr_t addr);
+uint32_t pio_read_b(ioaddr_t addr);
 
 make_EHelper(lidt) {
   TODO();
@@ -42,7 +47,7 @@ make_EHelper(iret) {
 }
 
 make_EHelper(in) {
-	//Log("the in instr:the width is %d", id_dest->width); 
+	/*Log("the in instr:the width is %d", id_dest->width); 
   assert(id_dest->width == 1 || id_dest->width == 2 || id_dest->width == 4);
 	if(ioperm(id_src->val, 1, 1) != 0) {
 		perror("ioperm");
@@ -56,7 +61,13 @@ make_EHelper(in) {
 	}
 	else {
 		id_dest->val = inl(id_src->val);
-	}
+	}*/
+	if(id_dest->width == 1)
+		id_dest->val = pio_read_b(id_src->val);
+	else if(id_dest->width == 2)
+		id_dest->val = pio_read_w(id_src->val);
+	else
+		id_dest->val = pio_read_l(id_src->val);
   operand_write(id_dest, &id_dest->val);
   print_asm_template2(in);
 
