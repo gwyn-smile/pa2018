@@ -28,8 +28,10 @@ make_EHelper(popa) {
 }
 
 make_EHelper(leave) {
-  rtl_mv(&reg_l(4), &reg_l(5));
-	rtl_pop(&reg_l(5));
+	Log("before leave the ESP is %x", reg_l(R_ESP));
+  rtl_mv(&reg_l(R_ESP), &reg_l(R_EBP));
+	rtl_pop(&reg_l(R_EBP));
+	Log("after leave the ESP is %x", reg_l(R_ESP));
   print_asm("leave");
 }
 
