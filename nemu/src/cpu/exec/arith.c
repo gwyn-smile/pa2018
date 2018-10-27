@@ -32,11 +32,12 @@ make_EHelper(add) {
 	else
 		rtl_set_OF(&eflags_0);
 	*/
-	check_eflags();
+
+	//check_eflags();
   rtl_add(&t2, &id_dest->val, &id_src->val);
   rtl_setrelop(RELOP_LTU, &t3, &t2, &id_dest->val);
   operand_write(id_dest, &t2);
-	Log("before add: the dest is %08x, the src is %08x, the result is %08x", id_dest->val, id_src->val, t2);
+	//Log("before add: the dest is %08x, the src is %08x, the result is %08x", id_dest->val, id_src->val, t2);
 
   rtl_update_ZFSF(&t2, id_dest->width);
 
@@ -51,7 +52,7 @@ make_EHelper(add) {
   rtl_msb(&t0, &t0, id_dest->width);
   rtl_set_OF(&t0);
 
-	check_eflags();
+	//check_eflags();
 
   print_asm_template2(add);
 }
@@ -76,12 +77,12 @@ make_EHelper(sub) {
 	else
 		rtl_set_OF(&eflags_0);
 	*/
-	check_eflags();
+	//check_eflags();
 
   rtl_sub(&t2, &id_dest->val, &id_src->val);
   rtl_setrelop(RELOP_LTU, &t3, &id_dest->val, &t2);
   operand_write(id_dest, &t2);
-	Log("before sub: the dest is %08x, the src is %08x, the result is %08x", id_dest->val, id_src->val, t2);
+	//Log("before sub: the dest is %08x, the src is %08x, the result is %08x", id_dest->val, id_src->val, t2);
 
   rtl_update_ZFSF(&t2, id_dest->width);
 
@@ -95,7 +96,7 @@ make_EHelper(sub) {
   rtl_msb(&t0, &t0, id_dest->width);
   rtl_set_OF(&t0);
 
-	check_eflags();
+	//check_eflags();
 
   print_asm_template2(sub);
 }
