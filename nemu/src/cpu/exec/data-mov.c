@@ -93,9 +93,9 @@ make_EHelper(movzx) {
 
 make_EHelper(lea) {
   operand_write(id_dest, &id_src->addr);
-	if(id_dest->width == 2)
+	/*if(id_dest->width == 2)
 		Log("leaw is %x", reg_w(id_dest->reg));
 	else
-		Log("leal is %x", reg_l(id_dest->reg));
+		Log("leal is %x", reg_l(id_dest->reg));*/
   print_asm_template2(lea);
 }
