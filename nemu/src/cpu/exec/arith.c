@@ -120,7 +120,7 @@ make_EHelper(cmp) {
 	else
 		rtl_set_OF(&eflags_0);
 	*/
-	//check_eflags();
+	check_eflags();
 
   rtl_sub(&t2, &id_dest->val, &id_src->val);
   rtl_setrelop(RELOP_LTU, &t3, &id_dest->val, &t2);
@@ -137,7 +137,7 @@ make_EHelper(cmp) {
 	rtl_msb(&t0, &t0, id_dest->width);
   rtl_set_OF(&t0);
 
-	//check_eflags();
+	check_eflags();
 
   print_asm_template2(cmp);
 }
