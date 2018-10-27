@@ -6,23 +6,31 @@ make_EHelper(mov) {
 }
 
 make_EHelper(push) {
-	uint32_t tt;
-  rtl_push(&(id_dest->val));
-	rtl_top(&tt);
+	//uint32_t tt;
+  rtl_push(&id_dest->val);
+	//rtl_top(&tt);
   print_asm_template1(push);
 }
 
 make_EHelper(pop) {
-	uint32_t tt;
-	rtl_top(&tt);
+	//uint32_t tt;
+	//rtl_top(&tt);
   rtl_pop(&id_dest->val);
 	operand_write(id_dest, &id_dest->val);
   print_asm_template1(pop);
 }
 
 make_EHelper(pusha) {
-  TODO();
-
+  uint32_t tmp;
+	tmp = reg_l(R_ESP);
+	rtl_push(&reg_l(R_EAX));
+	rtl_push(&reg_l(R_ECX));
+	rtl_push(&reg_l(R_EDX));
+	rtl_push(&reg_l(R_EBX));
+	rtl_push(&tmp);
+	rtl_push(&reg_l(R_EBP));
+	rtl_push(&reg_l(R_ESI));
+	rtl_push(&reg_l(R_EDI));
   print_asm("pusha");
 }
 
