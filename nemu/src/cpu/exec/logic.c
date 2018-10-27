@@ -88,10 +88,10 @@ make_EHelper(shr) {
 
 make_EHelper(setcc) {
   uint32_t cc = decoding.opcode & 0xf;
-	Log("before setcc %x", reg_b(id_dest->reg));
+	//Log("before setcc %x", reg_b(id_dest->reg));
   rtl_setcc(&t2, cc);
   operand_write(id_dest, &t2);
-	Log("after setcc %x", reg_b(id_dest->reg));
+	//Log("after setcc %x", reg_b(id_dest->reg));
   print_asm("set%s %s", get_cc_name(cc), id_dest->str);
 }
 
