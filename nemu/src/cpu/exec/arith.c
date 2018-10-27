@@ -134,7 +134,7 @@ make_EHelper(cmp) {
   rtl_xor(&t0, &id_dest->val, &id_src->val);
   rtl_xor(&t1, &id_dest->val, &t2);
   rtl_and(&t0, &t0, &t1);
-  rtl_msb(&t0, &t0, id_dest->width);
+	rtl_msb(&t0, &t0, id_dest->width);
   rtl_set_OF(&t0);
 
 	//check_eflags();
@@ -143,15 +143,40 @@ make_EHelper(cmp) {
 }
 
 make_EHelper(inc) {
-  TODO();
+	at = id_dest->val;
+	id_dest->val = id_dest->val + 1;
+	operand_write(id_dest, &id_dest->val);
 
-  print_asm_template1(inc);
+	rtl_update_ZFSF(&id_dest->val, id_dest->width);
+  
+	if(id_dest->val != 0)
+		rtl_set_CF(&eflags_1);
+	else
+		rtl_set_CF(&eflags_0);
+	
+	if((at >> ((id_dest->width << 3) - 1)) == 0 && (id_dest->val >> ((id_dest->width << 3) - 1)) != 0)
+		rtl_set_OF(&eflags_1);
+	else
+		rtl_set_OF(&eflags_0);
+
+	print_asm_template1(inc);
 }
 
 make_EHelper(dec) {
-  TODO();
+	at = id_dest->val;
+	id_dest->val = id_dest->val - 1;
+	operand_write(id_dest, &id_dest->val);
 
-  print_asm_template1(dec);
+	rtl_update_ZFSF(&id_dest->val, id_dest->width);
+  
+	rtl_set_CF(&eflags_1);
+
+	if((at >> ((id_dest->width << 3) - 1)) != 0 && (id_dest->val >> ((id_dest->width << 3) - 1)) == 0)
+		rtl_set_OF(&eflags_1);
+	else
+		rtl_set_OF(&eflags_0);
+
+	print_asm_template1(dec);
 }
 
 make_EHelper(neg) {
