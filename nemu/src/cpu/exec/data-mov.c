@@ -6,6 +6,8 @@ make_EHelper(mov) {
 }
 
 make_EHelper(push) {
+	uint32_t tt;
+	rtl_top(&tt);
   rtl_push(&(id_dest->val));
   print_asm_template1(push);
 }
