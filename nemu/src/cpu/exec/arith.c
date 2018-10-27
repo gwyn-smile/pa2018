@@ -148,11 +148,6 @@ make_EHelper(inc) {
 	operand_write(id_dest, &id_dest->val);
 
 	rtl_update_ZFSF(&id_dest->val, id_dest->width);
-  
-	if(id_dest->val != 0)
-		rtl_set_CF(&eflags_1);
-	else
-		rtl_set_CF(&eflags_0);
 	
 	if((at >> ((id_dest->width << 3) - 1)) == 0 && (id_dest->val >> ((id_dest->width << 3) - 1)) != 0)
 		rtl_set_OF(&eflags_1);
@@ -168,8 +163,6 @@ make_EHelper(dec) {
 	operand_write(id_dest, &id_dest->val);
 
 	rtl_update_ZFSF(&id_dest->val, id_dest->width);
-  
-	rtl_set_CF(&eflags_1);
 
 	if((at >> ((id_dest->width << 3) - 1)) != 0 && (id_dest->val >> ((id_dest->width << 3) - 1)) == 0)
 		rtl_set_OF(&eflags_1);
