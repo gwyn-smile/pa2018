@@ -66,15 +66,15 @@ make_EHelper(movsx) {
 
 make_EHelper(movzx) {
   id_dest->width = decoding.is_operand_size_16 ? 2 : 4;
-	if(id_dest->width == 2)
+	/*if(id_dest->width == 2)
 		Log("before movzxw %u", reg_w(id_dest->reg));
 	else
-		Log("before movzxl %u", reg_l(id_dest->reg));
+		Log("before movzxl %u", reg_l(id_dest->reg));*/
   operand_write(id_dest, &id_src->val);
-	if(id_dest->width == 2)
+	/*if(id_dest->width == 2)
 		Log("after movzxw %u", reg_w(id_dest->reg));
 	else
-		Log("after movzxl %u", reg_l(id_dest->reg));
+		Log("after movzxl %u", reg_l(id_dest->reg));*/
   print_asm_template2(movzx);
 }
 
