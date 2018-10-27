@@ -143,9 +143,11 @@ make_EHelper(cmp) {
 }
 
 make_EHelper(inc) {
+	Log("before inc %x", reg_l(id_dest->reg));
 	at = id_dest->val;
 	id_dest->val = id_dest->val + 1;
 	operand_write(id_dest, &id_dest->val);
+	Log("after inc %x", reg_l(id_dest->reg));
 
 	rtl_update_ZFSF(&id_dest->val, id_dest->width);
 	
