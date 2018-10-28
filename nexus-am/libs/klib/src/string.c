@@ -104,19 +104,12 @@ void* memcpy(void* out, const void* in, size_t n) {
 
 int memcmp(const void* s1, const void* s2, size_t n){
 	assert(NULL != s1 && NULL != s2);
-	char *s1_func = (char*) s1;
-	char *s2_func = (char*) s2;
-  while(n && (*s1_func) && (*s1_func == *s2_func)) {
-		s1_func++;
-		s2_func++;
-		n--;
-	}
-	if (*(unsigned char*)s1_func > *(unsigned char*)s2_func)
-		return 1;
-	else if (*(unsigned char*)s1_func < *(unsigned char*)s2_func)
-		return -1;
-	else
-		return 0;
+	const unsigned char *su1, *su2;
+
+  for(su1 = s1, su2 = s2; 0 < n; ++su1, ++su2, --n)
+		if(*su1 != *su2)
+			return ((*su1 < *su2) ? -1 : +1);
+	return (0);
 }
 
 #endif
