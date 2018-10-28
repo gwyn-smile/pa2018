@@ -32,13 +32,13 @@ make_EHelper(shr);
 make_EHelper(inc);
 make_EHelper(dec);
 make_EHelper(not);
+make_EHelper(imul2);
 
 make_EHelper(lea);
 
 make_EHelper(cmp);
 
 make_EHelper(setcc);
-
 make_EHelper(jcc);
 
 make_EHelper(in);
