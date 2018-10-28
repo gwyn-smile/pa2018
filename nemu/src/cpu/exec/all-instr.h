@@ -2,6 +2,7 @@
 make_EHelper(nop);
 make_EHelper(mov);
 make_EHelper(movzx);
+make_EHelper(movsx);
 
 make_EHelper(operand_size);
 
