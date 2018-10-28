@@ -57,7 +57,7 @@ int strcmp(const char* s1, const char* s2) {
 
 int strncmp(const char* s1, const char* s2, size_t n) {
 	assert(NULL != s1 && NULL != s2);
-  while ((*s1) && (*s1 == *s2) && n) {
+  while ((*s1) && (*s1 == *s2) && n)  {
 		s1++;
 		s2++;
 		n--;
@@ -104,15 +104,16 @@ void* memcpy(void* out, const void* in, size_t n) {
 
 int memcmp(const void* s1, const void* s2, size_t n){
 	assert(NULL != s1 && NULL != s2);
-	unsigned char *s1_func = (unsigned char*) s1;
-	unsigned char *s2_func = (unsigned char*) s2;
-  while((n--) && (*s1_func) && (*s1_func == *s2_func)) {
+	char *s1_func = (char*) s1;
+	char *s2_func = (char*) s2;
+  while(n && (*s1_func) && (*s1_func == *s2_func)) {
 		s1_func++;
 		s2_func++;
+		n--;
 	}
-	if (*s1_func > *s2_func)
+	if (*(unsigned char*)s1_func > *(unsigned char*)s2_func)
 		return 1;
-	else if (*s1_func < *s2_func)
+	else if (*(unsigned char*)s1_func < *(unsigned char*)s2_func)
 		return -1;
 	else
 		return 0;
