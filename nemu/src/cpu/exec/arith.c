@@ -176,7 +176,20 @@ make_EHelper(dec) {
 }
 
 make_EHelper(neg) {
-  TODO();
+	if(id_dest->val == 0)
+		rtl_set_CF(&eflags_0);
+	else
+		rtl_set_CF(&eflags_1);
+	
+	if((id_dest->width == 1 && id_dest->val == 0x80)||(id_dest->width == 2 && id_dest->val == 0x8000)||(id_dest->width == 4 && id_dest->val == 0x80000000))
+		rtl_set_OF(&eflags_1);
+	else
+		rtl_set_OF(&eflags_0);
+
+	id_dest->val = - ((int)id_dest->val);
+	operand_write(id_dest, &id_dest->val);
+
+	rtl_update_ZFSF(&id_dest->val, id_dest->width);
 
   print_asm_template1(neg);
 }
