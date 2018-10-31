@@ -50,3 +50,4 @@ make_EHelper(jcc);
 make_EHelper(cltd);
 
 make_EHelper(in);
+make_EHelper(out);
