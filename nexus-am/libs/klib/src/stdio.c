@@ -26,6 +26,7 @@ void get_type(va_list* ap, const char type, char* dest) {
 				num = d % 10;
 				d = d / 10;
 				dest[ct] = num - '0';
+				_putc(dest[ct]);
 				ct++;
 			}
 			char tmp;
