@@ -19,7 +19,6 @@ void get_type(va_list* ap, const char type, char* dest) {
 		} break;
 
 		case 'd': {
-			_putc('d');
 			int num, d, ct = 0;
 			d = (int32_t)va_arg(*ap, int32_t);
 			while(d) {
@@ -33,7 +32,6 @@ void get_type(va_list* ap, const char type, char* dest) {
 			int i;
 			for(i = 0; i <= (ct - 1) / 2; i++) {
 				tmp = dest[i];
-				_putc(tmp);
 				dest[i] = dest[ct - 1 - i];
 				dest[ct - 1 - i] = tmp;
 			}
