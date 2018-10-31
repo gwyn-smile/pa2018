@@ -23,6 +23,7 @@ void get_type(va_list* ap, const char type, char* dest) {
 			int num, d, ct = 0;
 			d = (int32_t)va_arg(*ap, int32_t);
 			while(d) {
+				_putc('i');
 				num = d % 10;
 				d = d / 10;
 				dest[ct] = num - '0';
