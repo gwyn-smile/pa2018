@@ -6,8 +6,8 @@ size_t timer_read(uintptr_t reg, void *buf, size_t size) {
   switch (reg) {
     case _DEVREG_TIMER_UPTIME: {
       _UptimeReg *uptime = (_UptimeReg *)buf;
-      uptime->hi = ((_UptimeReg*)buf)->hi;
-      uptime->lo = ((_UptimeReg*)buf)->lo;
+      uptime->hi = 0;
+      uptime->lo = 0;
       return sizeof(_UptimeReg);
     }
     case _DEVREG_TIMER_DATE: {
