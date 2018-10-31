@@ -9,6 +9,6 @@ int main() {
   for (int i = 0; i < 10; i ++) {
     print("Hello World!\n");
   } 
-	printf("%c %c %s\n", 'm', 'n', "string");
+	printf("%c b %s a%c %s\n", 'm', "good", 'n', "string");
   return 0;
 }
