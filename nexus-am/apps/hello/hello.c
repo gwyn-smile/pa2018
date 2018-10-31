@@ -9,6 +9,6 @@ int main() {
   for (int i = 0; i < 10; i ++) {
     print("Hello World!\n");
   }
-	printf("hello!%d \n",1);
+	printf("%d",1);
   return 0;
 }
