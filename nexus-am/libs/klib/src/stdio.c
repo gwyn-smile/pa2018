@@ -31,6 +31,7 @@ void get_type(va_list* ap, const char type, char* dest) {
 			int i;
 			for(i = 0; i <= (ct - 1) / 2; i++) {
 				tmp = dest[i];
+				_putc(tmp);
 				dest[i] = dest[ct - 1 - i];
 				dest[ct - 1 - i] = tmp;
 			}
