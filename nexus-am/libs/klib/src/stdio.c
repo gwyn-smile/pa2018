@@ -19,6 +19,7 @@ void get_type(va_list* ap, const char type, char* dest) {
 		} break;
 
 		case 'd': {
+			_putc('d');
 			int num, d, ct = 0;
 			d = (int32_t)va_arg(*ap, int32_t);
 			while(d) {
