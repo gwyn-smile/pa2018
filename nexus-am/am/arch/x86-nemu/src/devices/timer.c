@@ -1,6 +1,7 @@
 #include <am.h>
 #include <x86.h>
 #include <amdev.h>
+#include <klib.h>
 
 size_t timer_read(uintptr_t reg, void *buf, size_t size) {
   switch (reg) {
